@@ -21,7 +21,7 @@ interface MarvelApi {
     // &orderBy=-modified
 
     @GET("/v1/public/characters")
-    suspend fun retrieveHeroes(@Query("ts") ts: Int,
+    suspend fun retrieveHeroes(@Query("ts") ts: Long,
                                @Query("apikey") apikey: String,
                                @Query("hash") hash: String,
                                @Query("orderBy") orderBy: String

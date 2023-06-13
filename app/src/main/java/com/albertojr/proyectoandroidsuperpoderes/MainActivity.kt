@@ -1,6 +1,8 @@
 package com.albertojr.proyectoandroidsuperpoderes
 
 import android.os.Bundle
+import android.provider.Settings.Global.getString
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -22,6 +24,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.ui.theme.ProyectoAndroidSuperpoderesTheme
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Properties
 import java.util.jar.Attributes.Name
 
 
@@ -48,7 +51,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun apiTestVM(viewModel: HeroeListViewModel, modifier: Modifier = Modifier) {
-
     val state by viewModel.state.collectAsState()
 
     LaunchedEffect(Unit){
@@ -84,27 +86,5 @@ fun GreetingPreview() {
         apiTest(emptyList(), {})
     }
 }
-/*
-fun getApiKey(): String {
-    val fl = rootProject.file("gradle.properties")
-
-    if (fl.exists()) {
-        val properties = Properties()
-        properties.load(FileInputStream(fl))
-        return properties.getProperty("prueba")
-    } else {
-        throw FileNotFoundException()
-    }
-}
-
-Properties properties = new Properties()
-        if (project.rootProject.file('local.properties').canRead()) {
-            properties.load(project.rootProject.file("local.properties").newDataInputStream())
-        }
 
 
-        buildConfigField 'String', 'HASH', properties.getProperty('HASH', '"xxxxxxxxx"')
-        buildConfigField 'String', 'api_key', properties.getProperty('api_key', '"xxxxxxxx"')
-        buildConfigField 'String', 'TS', properties.getProperty('TS', '"0"')
-
- */
