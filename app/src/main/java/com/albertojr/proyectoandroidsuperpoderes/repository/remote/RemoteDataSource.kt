@@ -1,8 +1,12 @@
 package com.albertojr.proyectoandroidsuperpoderes.repository.remote
 
-import retrofit2.http.Header
+import com.albertojr.proyectoandroidsuperpoderes.repository.Comic
+import com.albertojr.proyectoandroidsuperpoderes.repository.Serie
 
 interface RemoteDataSource {
 
     suspend fun retrieveHeroes(): List<RemoteHeroe>
+    suspend fun retrieveHeroeComics(heroeId: Long): List<Comic>
+    suspend fun retrieveHeroeSeries(heroeId: Long): List<Serie>
+
 }

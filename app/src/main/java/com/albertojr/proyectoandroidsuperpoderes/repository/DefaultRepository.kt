@@ -13,4 +13,12 @@ class DefaultRepository @Inject constructor(
     override suspend fun retrieveHeroes(): List<Heroe> {
         return RemoteHeroeToHeroe().mapRemoteHeroesToHeroes(remoteDataSource.retrieveHeroes())
     }
+
+    override suspend fun retrieveHeroeComics(heroeId: Long): List<Comic> {
+        return remoteDataSource.retrieveHeroeComics(heroeId)
+    }
+
+    override suspend fun retrieveHeroeSeries(heroeId: Long): List<Serie> {
+        return remoteDataSource.retrieveHeroeSeries(heroeId)
+    }
 }
