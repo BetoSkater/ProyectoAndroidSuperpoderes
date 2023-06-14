@@ -1,26 +1,26 @@
 package com.albertojr.proyectoandroidsuperpoderes.repository.remote
 
-data class HeroeComicsApiResult (
-    val code: Long,
-    val status: String,
-    val copyright: String,
-    val attributionText: String,
-    val attributionHTML: String,
-    val etag: String,
-    val data: ComicsData
-)
+//data class HeroeComicsApiResult (
+//    val code: Long,
+//    val status: String,
+//    val copyright: String,
+//    val attributionText: String,
+//    val attributionHTML: String,
+//    val etag: String,
+//    val data: ComicsData
+//)
+//
+//data class ComicsData (
+//    val offset: Long,
+//    val limit: Long,
+//    val total: Long,
+//    val count: Long,
+//    val results: List<ComicsResult>
+//)
 
-data class ComicsData (
-    val offset: Long,
-    val limit: Long,
-    val total: Long,
-    val count: Long,
-    val results: List<ComicsResult>
-)
 
 
-
-data class ComicsResult (
+data class ComicRemote (
     val id: Long,
     val digitalId: Long,
     val title: String,

@@ -4,10 +4,17 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.gestures.ScrollableState
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -17,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.albertojr.proyectoandroidsuperpoderes.repository.Comic
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.repository.Serie
@@ -46,10 +54,6 @@ class MainActivity : ComponentActivity() {
 }
 
 
-
-
-
-
 @Composable
 fun apiTestRetrieveAllHeroesVM(viewModel: HeroeListViewModel, modifier: Modifier = Modifier) {
     val state by viewModel.state.collectAsState()
@@ -57,34 +61,35 @@ fun apiTestRetrieveAllHeroesVM(viewModel: HeroeListViewModel, modifier: Modifier
     val stateSeries by viewModel.stateSeries.collectAsState()
 
     LaunchedEffect(Unit){
-        //viewModel.retrieveHeroes()
+        viewModel.retrieveHeroes()
       //  viewModel.retrieveHeroeComics(1011758)
         viewModel.retrieveHeroeComics(1017857)
 
-        viewModel.retrieveHeroeSeries(1011758)
-       // viewModel.retrieveHeroeSeries(1017857)
+       // viewModel.retrieveHeroeSeries(1011758)
+        viewModel.retrieveHeroeSeries(1017857)
     }
 
     //TODO Qhat does it do? Call the base Composable used by both, the preview and the app
 
+    Column(modifier = Modifier
+        .padding(20.dp)
+        .verticalScroll(rememberScrollState())) {
+        Box(Modifier.height(300.dp))  {
+            apiTestHeroeSeries(stateSeries){serie ->
 
-    apiTestHeroeSeries(stateSeries){serie ->
+            }
+        }
+        Box(Modifier.height(300.dp))  {
+            apiTestHeroeComics(stateComics){ heroe ->
 
+            }
+        }
+        Box(Modifier.height(300.dp))  {
+            apiTestRetrieveAllHeroes(state){heroe ->
+
+            }
+        }
     }
-
-/*
-    apiTestHeroeSeries(stateComics){ heroe ->
-
-    }
-
- */
-
-    /*
-    apiTestRetrieveAllHeroes(state){heroe ->
-
-    }
-
-     */
 }
 
 
@@ -94,7 +99,7 @@ fun apiTestHeroeSeries(comics: List<Serie>, onitemClicled: (String)->Unit){
         Text(text = "Series List")
         LazyColumn(){
             items(items = comics, key = {it.id}){serie ->
-                SerieItem(serie = serie)
+                ItemCard( serie)
             }
         }
     }
@@ -106,14 +111,16 @@ fun SerieItem(serie: Serie){
 
 
 
-/*
+
+
+
 @Composable
 fun apiTestHeroeComics(comics: List<Comic>, onitemClicled: (String)->Unit){
     Column() {
         Text(text = "Comics List")
         LazyColumn(){
             items(items = comics, key = {it.id}){comic ->
-                comicItem(comic = comic)
+                ItemCard(comic)
             }
         }
     }
@@ -124,17 +131,19 @@ fun comicItem(comic: Comic){
 }
 
 
- */
 
 
-/*
+
+
+
+
 @Composable
 fun apiTestRetrieveAllHeroes(heroes: List<Heroe>, onitemClicled: (String)->Unit){
     Column() {
         Text(text = "Heroes List")
         LazyColumn(){
             items(items = heroes, key = {it.id}){heroe ->
-                heroeItem(heroe = heroe)
+                ItemCard(heroe)
             }
         }
     }
@@ -146,7 +155,9 @@ fun heroeItem(heroe: Heroe){
 
 
 
- */
+
+
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

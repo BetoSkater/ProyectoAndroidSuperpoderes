@@ -1,17 +1,15 @@
 package com.albertojr.proyectoandroidsuperpoderes.repository.mappers
 
-import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.repository.Serie
-import com.albertojr.proyectoandroidsuperpoderes.repository.remote.RemoteHeroe
-import com.albertojr.proyectoandroidsuperpoderes.repository.remote.SeriesResult
+import com.albertojr.proyectoandroidsuperpoderes.repository.remote.models.SerieRemote
 import javax.inject.Inject
 
 class SerieResultToSerie @Inject constructor() {
-    fun mapSerieResultToSeries(seriesResultList: List<SeriesResult>): List<Serie> {
-        return seriesResultList.map { mapSerieResultToSErie(it) }
+    fun mapSerieResultToSeries(seriesResultList: List<SerieRemote>): List<Serie> {
+        return seriesResultList.map { mapSerieResultToSerie(it) }
     }
 
-    fun mapSerieResultToSErie(serieResult: SeriesResult): Serie {
+    private fun mapSerieResultToSerie(serieResult: SerieRemote): Serie {
         return Serie(
             serieResult.id,
             serieResult.title,

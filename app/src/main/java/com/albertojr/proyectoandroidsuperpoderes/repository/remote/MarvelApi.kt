@@ -1,5 +1,7 @@
 package com.albertojr.proyectoandroidsuperpoderes.repository.remote
 
+import com.albertojr.proyectoandroidsuperpoderes.repository.remote.models.HeroeRemote
+import com.albertojr.proyectoandroidsuperpoderes.repository.remote.models.SerieRemote
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -24,7 +26,7 @@ interface MarvelApi {
                                @Query("apikey") apikey: String,
                                @Query("hash") hash: String,
                                @Query("orderBy") orderBy: String
-    ): HeroesApiResult
+    ): ApiResult<HeroeRemote>
 
     //TODO Two extra endpoints are needed for the detail view
     //Retrieve comics in which the heroe makes an appearence by heroeID
@@ -34,7 +36,7 @@ interface MarvelApi {
                                     @Query("apikey") apikey: String,
                                     @Query("hash") hash: String,
                                     @Query("orderBy") orderBy: String
-                                    ): HeroeComicsApiResult
+                                    ): ApiResult<ComicRemote>
 
     //Retrieve comics in which the heroe makes an appearence by heroeID
     @GET("/v1/public/characters/{characterID}/series")
@@ -43,7 +45,7 @@ interface MarvelApi {
                                     @Query("apikey") apikey: String,
                                     @Query("hash") hash: String,
                                     @Query("orderBy") orderBy: String
-                                    ): HeroeSeriesApiResult
+                                    ): ApiResult<SerieRemote>
 
 
 }

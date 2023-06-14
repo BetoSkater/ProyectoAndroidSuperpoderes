@@ -1,26 +1,29 @@
 package com.albertojr.proyectoandroidsuperpoderes.repository.remote
 
-data class HeroesApiResult (
+data class ApiResult<T> (
     val code: Long,
     val status: String,
     val copyright: String,
     val attributionText: String,
     val attributionHTML: String,
     val etag: String,
-    val data: HeroesData
+    val data: Data<T>
 )
 
-data class HeroesData (
+data class Data<T> (
     val offset: Long,
     val limit: Long,
     val total: Long,
     val count: Long,
-    val results: List<RemoteHeroe> // = HeroeList
+    val results: List<T>
 )
-data class RemoteHeroe (
-    val id: Long,
-    val name: String,
-    val description: String,
-    val modified: String,
-    val thumbnail: Thumbnail,
+
+
+data class Thumbnail (
+    val path: String,
+    val extension: Extension
 )
+
+enum class Extension {
+    jpg
+}
