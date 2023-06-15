@@ -23,34 +23,12 @@ import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.repository.Serie
 import com.albertojr.proyectoandroidsuperpoderes.repository.remote.Extension
 import com.albertojr.proyectoandroidsuperpoderes.repository.remote.Thumbnail
+import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardData
 
 @Composable
-fun <T> ItemCard(elementToDisplay:T) {
+fun  ItemCard(elementToDisplay:ItemCardData) {
 
-    val itemCardData = ItemCardData()
-
-    when(elementToDisplay){
-        //todo should I create a new object with an enum ty,pe, id , name and picture??
-        is Heroe -> {
-            itemCardData.id = elementToDisplay.id
-            itemCardData.name = elementToDisplay.name
-            itemCardData.image = generateImageURLFromThumnail(elementToDisplay.thumbnail)
-        }
-        is Comic -> {
-            itemCardData.id = elementToDisplay.id
-            itemCardData.name = elementToDisplay.title
-            itemCardData.image = generateImageURLFromThumnail(elementToDisplay.thumbnail)
-        }
-        is Serie -> {
-            itemCardData.id = elementToDisplay.id
-            itemCardData.name = elementToDisplay.title
-            itemCardData.image = generateImageURLFromThumnail(elementToDisplay.thumbnail)
-        }
-        else -> {
-            //TODO add Something went wrong or whatever
-        }
-    }
-    ItemCardBase( itemCardData = itemCardData)
+    ItemCardBase( itemCardData = elementToDisplay)
 }
 
 
@@ -80,10 +58,7 @@ private fun ItemCardBase(itemCardData: ItemCardData){
         }
     }
 }
-//TODO move to utils, or unpack the image in the repository
-private fun generateImageURLFromThumnail(thumbnail: Thumbnail):String{
-return "${thumbnail.path}/portrait_uncanny.${thumbnail.extension}"
-}
+
 
 
 
@@ -91,5 +66,5 @@ return "${thumbnail.path}/portrait_uncanny.${thumbnail.extension}"
 @Composable
 private fun ItemCard_Preview() {
     val heroe = Heroe(121221,"goku", "Is the best", "", Thumbnail("R.drawable.ic_launcher_background",Extension.jpg))
-    ItemCard(heroe)
+    ItemCard(GenericToItemCardData().ItemCardMapper(heroe))
 }

@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.albertojr.proyectoandroidsuperpoderes.repository.Comic
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.repository.Serie
+import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardData
 import com.albertojr.proyectoandroidsuperpoderes.ui.theme.ProyectoAndroidSuperpoderesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -94,25 +95,16 @@ fun apiTestRetrieveAllHeroesVM(viewModel: HeroeListViewModel, modifier: Modifier
 
 
 @Composable
-fun apiTestHeroeSeries(comics: List<Serie>, onitemClicled: (String)->Unit){
+fun apiTestHeroeSeries(series: List<Serie>, onitemClicled: (String)->Unit){
     Column() {
         Text(text = "Series List")
         LazyColumn(){
-            items(items = comics, key = {it.id}){serie ->
-                ItemCard( serie)
+            items(items = series, key = {it.id}){serie ->
+                ItemCard( GenericToItemCardData().ItemCardMapper(serie))
             }
         }
     }
 }
-@Composable
-fun SerieItem(serie: Serie){
-    Text(text = serie.title)
-}
-
-
-
-
-
 
 @Composable
 fun apiTestHeroeComics(comics: List<Comic>, onitemClicled: (String)->Unit){
@@ -120,22 +112,11 @@ fun apiTestHeroeComics(comics: List<Comic>, onitemClicled: (String)->Unit){
         Text(text = "Comics List")
         LazyColumn(){
             items(items = comics, key = {it.id}){comic ->
-                ItemCard(comic)
+                ItemCard(GenericToItemCardData().ItemCardMapper(comic))
             }
         }
     }
 }
-@Composable
-fun comicItem(comic: Comic){
-    Text(text = comic.title)
-}
-
-
-
-
-
-
-
 
 @Composable
 fun apiTestRetrieveAllHeroes(heroes: List<Heroe>, onitemClicled: (String)->Unit){
@@ -143,20 +124,11 @@ fun apiTestRetrieveAllHeroes(heroes: List<Heroe>, onitemClicled: (String)->Unit)
         Text(text = "Heroes List")
         LazyColumn(){
             items(items = heroes, key = {it.id}){heroe ->
-                ItemCard(heroe)
+                ItemCard(GenericToItemCardData().ItemCardMapper(heroe))
             }
         }
     }
 }
-@Composable
-fun heroeItem(heroe: Heroe){
-    Text(text = heroe.name)
-}
-
-
-
-
-
 
 
 @Preview(showBackground = true, showSystemUi = true)
