@@ -17,17 +17,17 @@ class GenericToItemCardData {
             is Heroe -> {
                 itemCardData.id = elementToDisplay.id
                 itemCardData.name = elementToDisplay.name
-                itemCardData.image = generateImageURLFromThumnail(elementToDisplay.thumbnail)
+                itemCardData.image = elementToDisplay.picture
             }
             is Comic -> {
                 itemCardData.id = elementToDisplay.id
                 itemCardData.name = elementToDisplay.title
-                itemCardData.image = generateImageURLFromThumnail(elementToDisplay.thumbnail)
+                itemCardData.image = elementToDisplay.picture
             }
             is Serie -> {
                 itemCardData.id = elementToDisplay.id
                 itemCardData.name = elementToDisplay.title
-                itemCardData.image = generateImageURLFromThumnail(elementToDisplay.thumbnail)
+                itemCardData.image = elementToDisplay.picture
             }
             else -> {
                 //TODO add Something went wrong or whatever
@@ -37,8 +37,5 @@ class GenericToItemCardData {
         return itemCardData
     }
 
-    private fun generateImageURLFromThumnail(thumbnail: Thumbnail):String{
-        return "${thumbnail.path}/portrait_uncanny.${thumbnail.extension}"
-    }
 
 }

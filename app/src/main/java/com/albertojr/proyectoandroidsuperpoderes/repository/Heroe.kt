@@ -6,7 +6,9 @@ data class Heroe (
     val id: Long,
     val name: String,
     val description: String,
-    val modified: String,
-    val thumbnail: Thumbnail,
+//    val modified: String,
+//    val thumbnail: Thumbnail,
+    val picture : String,
+    var isFavourite: Boolean = false
 )
 

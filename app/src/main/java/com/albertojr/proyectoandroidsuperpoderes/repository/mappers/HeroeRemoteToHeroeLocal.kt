@@ -1,16 +1,16 @@
 package com.albertojr.proyectoandroidsuperpoderes.repository.mappers
 
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
+import com.albertojr.proyectoandroidsuperpoderes.repository.local.models.HeroeLocal
 import com.albertojr.proyectoandroidsuperpoderes.repository.remote.models.HeroeRemote
-import javax.inject.Inject
 
-class HeroeRemoteToHeroe @Inject constructor() {
+class HeroeRemoteToHeroeLocal {
 
-    fun mapHeroesRemoteToHeroes(heroeRemoteList: List<HeroeRemote>): List<Heroe>{
-        return heroeRemoteList.map{mapHeroeRemoteToHeroe(it)}
+    fun mapHeroeRemoteToHeroesLocal(heroeRemoteList: List<HeroeRemote>): List<HeroeLocal>{
+        return heroeRemoteList.map{mapHeroeRemoteToHeroeLocal(it)}
     }
-    private fun mapHeroeRemoteToHeroe(heroeRemote: HeroeRemote): Heroe{
-        return Heroe(
+    private fun mapHeroeRemoteToHeroeLocal(heroeRemote: HeroeRemote): HeroeLocal {
+        return HeroeLocal(
             heroeRemote.id,
             heroeRemote.name,
             heroeRemote.description,

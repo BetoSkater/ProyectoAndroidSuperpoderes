@@ -7,6 +7,6 @@ data class HeroeRemote (
     val id: Long,
     val name: String,
     val description: String,
-    val modified: String,
+//    val modified: String,
     val thumbnail: Thumbnail,
 )

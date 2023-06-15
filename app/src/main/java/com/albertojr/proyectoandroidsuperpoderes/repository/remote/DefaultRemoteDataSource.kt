@@ -7,7 +7,6 @@ import com.albertojr.proyectoandroidsuperpoderes.repository.Serie
 import com.albertojr.proyectoandroidsuperpoderes.repository.mappers.ComicResultToComic
 import com.albertojr.proyectoandroidsuperpoderes.repository.mappers.HeroeRemoteToHeroe
 import com.albertojr.proyectoandroidsuperpoderes.repository.mappers.SerieResultToSerie
-import com.albertojr.proyectoandroidsuperpoderes.repository.remote.models.HeroeRemote
 import java.math.BigInteger
 import java.security.MessageDigest
 import javax.inject.Inject
@@ -23,7 +22,7 @@ class DefaultRemoteDataSource @Inject constructor(private val api: MarvelApi): R
 
         val result = api.retrieveHeroes(ts, apikey,hash,orderBy)
         //return HeroeApiResultToRemoteHeroe().mapHeroeApiResultToRemoteHeroe(result)
-        return HeroeRemoteToHeroe().mapRemoteHeroesToHeroes(result.data.results)
+        return HeroeRemoteToHeroe().mapHeroesRemoteToHeroes(result.data.results)
     }
 
     override suspend fun retrieveHeroeComics(heroeId: Long): List<Comic> {

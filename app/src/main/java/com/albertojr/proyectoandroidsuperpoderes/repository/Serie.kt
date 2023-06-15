@@ -9,5 +9,6 @@ data class Serie (
     val endYear: Long,
     val rating: String,
     val type: String,
-    val thumbnail: Thumbnail,
+//    val thumbnail: Thumbnail,
+val picture: String
 )

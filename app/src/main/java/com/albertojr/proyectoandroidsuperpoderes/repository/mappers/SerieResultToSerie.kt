@@ -17,7 +17,6 @@ class SerieResultToSerie @Inject constructor() {
             serieResult.endYear,
             serieResult.rating,
             serieResult.type,
-            serieResult.thumbnail
-        )
+            ThubmailToURL().generateImageURLFromThumnail(serieResult.thumbnail)        )
     }
 }

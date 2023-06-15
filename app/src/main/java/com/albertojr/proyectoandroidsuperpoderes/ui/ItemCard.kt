@@ -65,6 +65,6 @@ private fun ItemCardBase(itemCardData: ItemCardData){
 @Preview(showBackground = true)
 @Composable
 private fun ItemCard_Preview() {
-    val heroe = Heroe(121221,"goku", "Is the best", "", Thumbnail("R.drawable.ic_launcher_background",Extension.jpg))
+    val heroe = Heroe(121221,"goku", "Is the best", "url here", false)
     ItemCard(GenericToItemCardData().ItemCardMapper(heroe))
 }

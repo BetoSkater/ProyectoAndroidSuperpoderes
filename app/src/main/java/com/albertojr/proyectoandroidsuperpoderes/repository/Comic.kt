@@ -9,7 +9,8 @@ data class Comic(
     val id: Long,
     val title: String,
     val issueNumber: Long,
-    val thumbnail: Thumbnail,
+//    val thumbnail: Thumbnail,
+    val picture:String,
     val images: List<Thumbnail>,
 )
 

@@ -14,7 +14,7 @@ class ComicResultToComic @Inject constructor() {
             comicResult.id,
             comicResult.title,
             comicResult.issueNumber,
-            comicResult.thumbnail,
+            ThubmailToURL().generateImageURLFromThumnail(comicResult.thumbnail),
             comicResult.images
         )
     }
