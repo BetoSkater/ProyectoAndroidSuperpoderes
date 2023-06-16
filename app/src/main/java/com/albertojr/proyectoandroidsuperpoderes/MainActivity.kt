@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.gestures.ScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -29,7 +27,9 @@ import com.albertojr.proyectoandroidsuperpoderes.repository.Comic
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.repository.Serie
 import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardData
+import com.albertojr.proyectoandroidsuperpoderes.ui.navigation.NavigationGraph
 import com.albertojr.proyectoandroidsuperpoderes.ui.theme.ProyectoAndroidSuperpoderesTheme
+import com.albertojr.proyectoandroidsuperpoderes.ui.viewModel.HeroeListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -43,12 +43,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProyectoAndroidSuperpoderesTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    apiTestRetrieveAllHeroesVM(heroeListViewModel)
-                }
+                
+                NavigationGraph(heroeListViewModel = heroeListViewModel)
+                
+//                Surface(
+//                    modifier = Modifier.fillMaxSize(),
+//                    color = MaterialTheme.colorScheme.background
+//                ) {
+//                   // apiTestRetrieveAllHeroesVM(heroeListViewModel)
+//                    
+//                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.albertojr.proyectoandroidsuperpoderes
+package com.albertojr.proyectoandroidsuperpoderes.ui.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,13 +22,16 @@ class HeroeListViewModel @Inject constructor(private val repository: Repository)
     val state: StateFlow<List<Heroe>> get() = _state
 
 
-
     private val _stateComics = MutableStateFlow<List<Comic>>(emptyList())
     val stateComics: StateFlow<List<Comic>> get() = _stateComics
 
 
     private val _stateSeries = MutableStateFlow<List<Serie>>(emptyList())
     val stateSeries: StateFlow<List<Serie>> get() = _stateSeries
+
+
+    private val _stateHeroe = MutableStateFlow<Heroe>(Heroe(-1,"","", "",))
+    val stateHeroe: StateFlow<Heroe> get() = _stateHeroe
 
 
 
@@ -58,4 +61,14 @@ class HeroeListViewModel @Inject constructor(private val repository: Repository)
             _stateSeries.update {result}
         }
     }
+
+    fun retrieveHeroeWithID(id: Long){
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO){
+                repository.retrieveHeroeById(id)
+            }
+            _stateHeroe.update { result }
+        }
+    }
+
 }

@@ -1,11 +1,7 @@
 package com.albertojr.proyectoandroidsuperpoderes
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Card
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,23 +10,16 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap.Companion.Square
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
-import com.albertojr.proyectoandroidsuperpoderes.repository.Comic
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
-import com.albertojr.proyectoandroidsuperpoderes.repository.Serie
-import com.albertojr.proyectoandroidsuperpoderes.repository.remote.Extension
-import com.albertojr.proyectoandroidsuperpoderes.repository.remote.Thumbnail
+import com.albertojr.proyectoandroidsuperpoderes.repository.remote.models.ItemCardData
 import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardData
 
 @Composable
-fun  ItemCard(elementToDisplay:ItemCardData) {
-
+fun  ItemCard(elementToDisplay: ItemCardData) {
     ItemCardBase( itemCardData = elementToDisplay)
 }
-
 
 @Composable
 private fun ItemCardBase(itemCardData: ItemCardData){
