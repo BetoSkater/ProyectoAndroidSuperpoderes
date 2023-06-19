@@ -1,6 +1,6 @@
 package com.albertojr.proyectoandroidsuperpoderes.ui.mappers
 
-import com.albertojr.proyectoandroidsuperpoderes.repository.remote.models.ItemCardData
+import com.albertojr.proyectoandroidsuperpoderes.ui.model.ItemCardData
 import com.albertojr.proyectoandroidsuperpoderes.repository.Comic
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.repository.Serie

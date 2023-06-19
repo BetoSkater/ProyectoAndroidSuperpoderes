@@ -45,102 +45,102 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 
                 NavigationGraph(heroeListViewModel = heroeListViewModel)
-                
+//
 //                Surface(
 //                    modifier = Modifier.fillMaxSize(),
 //                    color = MaterialTheme.colorScheme.background
 //                ) {
-//                   // apiTestRetrieveAllHeroesVM(heroeListViewModel)
-//                    
+//                    apiTestRetrieveAllHeroesVM(heroeListViewModel)
+//
 //                }
             }
         }
     }
 }
 
-
-@Composable
-fun apiTestRetrieveAllHeroesVM(viewModel: HeroeListViewModel, modifier: Modifier = Modifier) {
-    val state by viewModel.state.collectAsState()
-    val stateComics by viewModel.stateComics.collectAsState()
-    val stateSeries by viewModel.stateSeries.collectAsState()
-
-    LaunchedEffect(Unit){
-        viewModel.retrieveHeroes()
-      //  viewModel.retrieveHeroeComics(1011758)
-        viewModel.retrieveHeroeComics(1017857)
-
-       // viewModel.retrieveHeroeSeries(1011758)
-        viewModel.retrieveHeroeSeries(1017857)
-    }
-
-    //TODO Qhat does it do? Call the base Composable used by both, the preview and the app
-
-    Column(modifier = Modifier
-        .padding(20.dp)
-        .verticalScroll(rememberScrollState())) {
-        Box(Modifier.height(300.dp))  {
-            apiTestHeroeSeries(stateSeries){serie ->
-
-            }
-        }
-        Box(Modifier.height(300.dp))  {
-            apiTestHeroeComics(stateComics){ heroe ->
-
-            }
-        }
-        Box(Modifier.height(300.dp))  {
-            apiTestRetrieveAllHeroes(state){heroe ->
-
-            }
-        }
-    }
-}
-
-
-@Composable
-fun apiTestHeroeSeries(series: List<Serie>, onitemClicled: (String)->Unit){
-    Column() {
-        Text(text = "Series List")
-        LazyColumn(){
-            items(items = series, key = {it.id}){serie ->
-                ItemCard( GenericToItemCardData().ItemCardMapper(serie))
-            }
-        }
-    }
-}
-
-@Composable
-fun apiTestHeroeComics(comics: List<Comic>, onitemClicled: (String)->Unit){
-    Column() {
-        Text(text = "Comics List")
-        LazyColumn(){
-            items(items = comics, key = {it.id}){comic ->
-                ItemCard(GenericToItemCardData().ItemCardMapper(comic))
-            }
-        }
-    }
-}
-
-@Composable
-fun apiTestRetrieveAllHeroes(heroes: List<Heroe>, onitemClicled: (String)->Unit){
-    Column() {
-        Text(text = "Heroes List")
-        LazyColumn(){
-            items(items = heroes, key = {it.id}){heroe ->
-                ItemCard(GenericToItemCardData().ItemCardMapper(heroe))
-            }
-        }
-    }
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun GreetingPreview() {
-    ProyectoAndroidSuperpoderesTheme {
-        //apiTestHeroeComics(emptyList(), {})
-    }
-}
-
-
+//
+//@Composable
+//fun apiTestRetrieveAllHeroesVM(viewModel: HeroeListViewModel, modifier: Modifier = Modifier) {
+//    val state by viewModel.state.collectAsState()
+//    val stateComics by viewModel.stateComics.collectAsState()
+//    val stateSeries by viewModel.stateSeries.collectAsState()
+//
+//    LaunchedEffect(Unit){
+//        viewModel.retrieveHeroes()
+//      //  viewModel.retrieveHeroeComics(1011758)
+//        viewModel.retrieveHeroeComics(1017857)
+//
+//       // viewModel.retrieveHeroeSeries(1011758)
+//        viewModel.retrieveHeroeSeries(1017857)
+//    }
+//
+//    //TODO Qhat does it do? Call the base Composable used by both, the preview and the app
+//
+//    Column(modifier = Modifier
+//        .padding(20.dp)
+//        .verticalScroll(rememberScrollState())) {
+//        Box(Modifier.height(300.dp))  {
+//            apiTestHeroeSeries(stateSeries){serie ->
+//
+//            }
+//        }
+//        Box(Modifier.height(300.dp))  {
+//            apiTestHeroeComics(stateComics){ heroe ->
+//
+//            }
+//        }
+//        Box(Modifier.height(300.dp))  {
+//            apiTestRetrieveAllHeroes(state){heroe ->
+//
+//            }
+//        }
+//    }
+//}
+//
+//
+//@Composable
+//fun apiTestHeroeSeries(series: List<Serie>, onitemClicled: (String)->Unit){
+//    Column() {
+//        Text(text = "Series List")
+//        LazyColumn(){
+//            items(items = series, key = {it.id}){serie ->
+//                ItemCard( GenericToItemCardData().ItemCardMapper(serie))
+//            }
+//        }
+//    }
+//}
+//
+//@Composable
+//fun apiTestHeroeComics(comics: List<Comic>, onitemClicled: (String)->Unit){
+//    Column() {
+//        Text(text = "Comics List")
+//        LazyColumn(){
+//            items(items = comics, key = {it.id}){comic ->
+//                ItemCard(GenericToItemCardData().ItemCardMapper(comic))
+//            }
+//        }
+//    }
+//}
+//
+//@Composable
+//fun apiTestRetrieveAllHeroes(heroes: List<Heroe>, onitemClicled: (String)->Unit){
+//    Column() {
+//        Text(text = "Heroes List")
+//        LazyColumn(){
+//            items(items = heroes, key = {it.id}){heroe ->
+//                ItemCard(GenericToItemCardData().ItemCardMapper(heroe))
+//            }
+//        }
+//    }
+//}
+//
+//
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun GreetingPreview() {
+//    ProyectoAndroidSuperpoderesTheme {
+//        //apiTestHeroeComics(emptyList(), {})
+//    }
+//}
+//
+//

@@ -1,4 +1,4 @@
-package com.albertojr.proyectoandroidsuperpoderes.repository.remote.models
+package com.albertojr.proyectoandroidsuperpoderes.ui.model
 
 data class ItemCardData (
     var id:Long = -1,

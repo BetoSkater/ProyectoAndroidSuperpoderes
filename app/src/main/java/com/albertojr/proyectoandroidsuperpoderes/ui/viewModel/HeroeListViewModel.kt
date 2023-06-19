@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
 @HiltViewModel
 class HeroeListViewModel @Inject constructor(private val repository: Repository): ViewModel(){

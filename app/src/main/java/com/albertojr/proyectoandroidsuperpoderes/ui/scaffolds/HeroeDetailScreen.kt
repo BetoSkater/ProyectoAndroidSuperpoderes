@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,13 +22,16 @@ import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardDat
 import com.albertojr.proyectoandroidsuperpoderes.ui.viewModel.HeroeListViewModel
 
 @Composable
-fun HeroeDetailScreen(heroeListViewModel: HeroeListViewModel) {
+fun HeroeDetailScreen(heroeID: Long, heroeListViewModel: HeroeListViewModel) {
     //val state by heroeListViewModel.state.collectAsState()
     val stateHeroe by heroeListViewModel.stateHeroe.collectAsState()
 
     val stateComics by heroeListViewModel.stateComics.collectAsState()
     val stateSeries by heroeListViewModel.stateSeries.collectAsState()
-    HeroeDetailScreenContent(stateHeroe, stateComics, stateSeries)
+
+    Text(text = "Heroe ID = $heroeID")
+
+ //   HeroeDetailScreenContent(stateHeroe, stateComics, stateSeries)
 }
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,7 +56,7 @@ fun HeroeDetailScreenContent(heroe: Heroe, comicList: List<Comic>, seriesList: L
     }
 }
 
-@Preview
+@Preview(showSystemUi = true)
 @Composable
 fun HeroeDetailScreen_Preview() {
     //HeroeDetailScreenContent()
