@@ -27,6 +27,8 @@ import com.albertojr.proyectoandroidsuperpoderes.ui.components.CustomTopBar
 import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardData
 import com.albertojr.proyectoandroidsuperpoderes.ui.navigation.NavigationGraph
 import com.albertojr.proyectoandroidsuperpoderes.ui.viewModel.HeroeListViewModel
+import androidx.compose.material.rememberScaffoldState
+
 
 @Composable
 //fun HeroesListScreen(heroeListViewModel: HeroeListViewModel,onHeroeListClicked: (Long) -> Unit = {_ ->}) {
@@ -55,7 +57,7 @@ fun HeroesListScreen(heroeListViewModel: HeroeListViewModel,onHeroeListClicked: 
 @Composable
 fun HeroesListScreenContent(heroes: List<Heroe>, onHeroeListClicked: (Long) -> Unit){
 
-  //  val scaffoldState = rememberScaffoldState()
+    val scaffoldState = rememberScaffoldState()
 
     Scaffold(
         topBar = { CustomTopBar() },
