@@ -28,6 +28,7 @@ import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardDat
 import com.albertojr.proyectoandroidsuperpoderes.ui.navigation.NavigationGraph
 import com.albertojr.proyectoandroidsuperpoderes.ui.viewModel.HeroeListViewModel
 import androidx.compose.material.rememberScaffoldState
+import kotlinx.coroutines.flow.map
 
 
 @Composable
@@ -35,6 +36,7 @@ import androidx.compose.material.rememberScaffoldState
 fun HeroesListScreen(heroeListViewModel: HeroeListViewModel,onHeroeListClicked: (Long) -> Unit ) {
 
     val state by heroeListViewModel.state.collectAsState()
+   //TODO add the item card mappers in here
     Log.d("Heroes", "primera ventana")
     LaunchedEffect(Unit){
         heroeListViewModel.retrieveHeroes()

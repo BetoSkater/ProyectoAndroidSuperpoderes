@@ -19,7 +19,7 @@ fun CustomTopBar() {
 fun CustomTopBarContent() {
     TopAppBar(
         title = {
-            Text("Marvel Heroes")
+            Text("Marvel Heroes") //TODO past string id as parameter
         }
     )
 }

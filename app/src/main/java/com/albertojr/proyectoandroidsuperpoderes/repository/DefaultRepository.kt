@@ -5,6 +5,8 @@ import com.albertojr.proyectoandroidsuperpoderes.repository.mappers.HeroeRemoteT
 import com.albertojr.proyectoandroidsuperpoderes.repository.mappers.HeroeRemoteToHeroeLocal
 import com.albertojr.proyectoandroidsuperpoderes.repository.mappers.HeroesToHeroeLocal
 import com.albertojr.proyectoandroidsuperpoderes.repository.remote.RemoteDataSource
+import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardData
+import com.albertojr.proyectoandroidsuperpoderes.ui.model.ItemCardData
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,11 +30,20 @@ class DefaultRepository @Inject constructor(
     }
 
 
-    override suspend fun retrieveHeroeComics(heroeId: Long): List<Comic> {
-        return remoteDataSource.retrieveHeroeComics(heroeId)
+//    override suspend fun retrieveHeroeComics(heroeId: Long): List<Comic> {
+//        return remoteDataSource.retrieveHeroeComics(heroeId)
+//    }
+//
+//    override suspend fun retrieveHeroeSeries(heroeId: Long): List<Serie> {
+//        return remoteDataSource.retrieveHeroeSeries(heroeId)
+//    }
+//
+    override suspend fun retrieveHeroeComics(heroeId: Long): List<ItemCardData> {
+        return GenericToItemCardData().GenericListToItemCardMapper(remoteDataSource.retrieveHeroeComics(heroeId))
     }
 
-    override suspend fun retrieveHeroeSeries(heroeId: Long): List<Serie> {
-        return remoteDataSource.retrieveHeroeSeries(heroeId)
+    override suspend fun retrieveHeroeSeries(heroeId: Long): List<ItemCardData> {
+        return GenericToItemCardData().GenericListToItemCardMapper(remoteDataSource.retrieveHeroeSeries(heroeId))
+
     }
 }

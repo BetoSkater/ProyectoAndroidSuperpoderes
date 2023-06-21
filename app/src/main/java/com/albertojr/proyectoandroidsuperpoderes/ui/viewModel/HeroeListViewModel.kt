@@ -6,10 +6,13 @@ import com.albertojr.proyectoandroidsuperpoderes.repository.Comic
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.repository.Repository
 import com.albertojr.proyectoandroidsuperpoderes.repository.Serie
+import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardData
+import com.albertojr.proyectoandroidsuperpoderes.ui.model.ItemCardData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,13 +26,21 @@ class HeroeListViewModel @Inject constructor(private val repository: Repository)
     val state: StateFlow<List<Heroe>> get() = _state
 
 
-    private val _stateComics = MutableStateFlow<List<Comic>>(emptyList())
-    val stateComics: StateFlow<List<Comic>> get() = _stateComics
+//    private val _stateComics = MutableStateFlow<List<Comic>>(emptyList())
+//    val stateComics: StateFlow<List<Comic>> get() = _stateComics
+//
+//    private val _stateSeries = MutableStateFlow<List<Serie>>(emptyList())
+//    val stateSeries: StateFlow<List<Serie>> get() = _stateSeries
 
 
-    private val _stateSeries = MutableStateFlow<List<Serie>>(emptyList())
-    val stateSeries: StateFlow<List<Serie>> get() = _stateSeries
+    //    private val _stateComics = MutableStateFlow<List<Comic>>(emptyList()).map { GenericToItemCardData().GenericListToItemCardMapper(stateComics) }
+//    val stateComics: StateFlow<List<ItemCardData>> get() = _stateComics
 
+    private val _stateComics = MutableStateFlow<List<ItemCardData>>(emptyList())
+    val stateComics: StateFlow<List<ItemCardData>> get() = _stateComics
+
+    private val _stateSeries = MutableStateFlow<List<ItemCardData>>(emptyList())
+    val stateSeries: StateFlow<List<ItemCardData>> get() = _stateSeries
 
     private val _stateHeroe = MutableStateFlow<Heroe>(Heroe(-1,"","", "",))
     val stateHeroe: StateFlow<Heroe> get() = _stateHeroe
@@ -40,6 +51,7 @@ class HeroeListViewModel @Inject constructor(private val repository: Repository)
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO){
                 repository.retrieveHeroes()
+
             }
             _state.update {result}
         }
@@ -58,6 +70,7 @@ class HeroeListViewModel @Inject constructor(private val repository: Repository)
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO){
                 repository.retrieveHeroeSeries(heroeId)
+
             }
             _stateSeries.update {result}
         }
