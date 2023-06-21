@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -35,10 +37,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.albertojr.proyectoandroidsuperpoderes.ItemCard
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.ui.components.CustomBottomBar
 import com.albertojr.proyectoandroidsuperpoderes.ui.components.CustomTopBar
 import com.albertojr.proyectoandroidsuperpoderes.ui.components.InfoDetailCard
+import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardData
 import com.albertojr.proyectoandroidsuperpoderes.ui.model.ItemCardData
 import com.albertojr.proyectoandroidsuperpoderes.ui.viewModel.HeroeListViewModel
 
@@ -76,7 +80,7 @@ fun HeroeDetailScreenContent(heroe: Heroe, comicList: List<ItemCardData>, series
             .padding(paddingValues = it)){
             //Heroe Detail Info
             InfoDetailCard(heroe = heroe)
-         //   TabRow(0, modifier = Modifier.height(150.dp)){TabMenuContent(comicList,seriesList)}
+            //Heroe detail Comics and series
             TabMenu( comicList, seriesList)
         }
     }
@@ -93,7 +97,6 @@ fun HeroeDetailScreen_Preview() {
 
 //Comics and Series Tabs
 
-
 @Composable
 fun TabMenu(comicsList: List<ItemCardData>, seriesList: List<ItemCardData>) {
         TabMenuContent(comicsList,seriesList)
@@ -102,26 +105,7 @@ fun TabMenu(comicsList: List<ItemCardData>, seriesList: List<ItemCardData>) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TabMenuContent(comicsList: List<ItemCardData>, seriesList: List<ItemCardData>) {
-    //Two pages, Comics and Series
-    val pagerState = rememberPagerState(initialPage = 0) //todo fix?
-
-    Column(modifier = Modifier.fillMaxHeight()) {
-        AditionDataTabs2()
-      //  AditionalDataTabs(pagerState = pagerState)
-
-//        HorizontalPager(modifier = Modifier
-//            .height(200.dp)
-//            .fillMaxWidth()
-//            .background(Color.Yellow),
-//            state = pagerState, pageCount = 2) { tabPage -> //TODO check pageCOunt
-//
-//            when(tabPage){
-//                1 -> TabContentScreen(comicsList)//COmics
-//                2 -> TabContentScreen(seriesList)//Series
-//            }
-//        }
-    }
-
+        AditionDataTabs2(comicsList, seriesList)
 }
 
 @Preview
@@ -132,72 +116,10 @@ fun TabMenu_Preview() {
 
     TabMenuContent(comicListTest,serieListTest)
 }
-
+// ------------------------------------------------------------------------------
+//TODO I'm missing one C of CAP for this composable
 @Composable
-fun TabContentScreen(itemCardData: List<ItemCardData>){
-    Column(modifier = Modifier.height(200.dp)) {
-
-        if(itemCardData.isNotEmpty()){
-            Text(text = itemCardData[0].name)
-        }else{
-            Text(text = "Loading data")
-        }
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-fun AditionalDataTabs(pagerState: PagerState){
-    val tabList = listOf(
-        "Comics",
-        "Series"
-    )
-    //TODO
-    //VER LA DOCU DE ANDROID; EL TABROW lo mete en una COlumna
-    //TODO
-    val coroutineScope = rememberCoroutineScope()
-        TabRow(selectedTabIndex = pagerState.currentPage,
-            Modifier
-                .fillMaxWidth()
-                .height(145.dp)
-                .background(Color.LightGray), contentColor = Color.Red,
-            indicator = {tabPositions ->
-                TabRowDefaults.Indicator(
-                    Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
-                    height = 5.dp,
-                    color = Color.White
-                )
-
-            }) {
-            tabList.forEachIndexed { index, value ->
-        Tab(
-            modifier = Modifier.height(55.dp),
-            text = {
-            Text(value,
-                modifier = Modifier.height(40.dp),
-            fontWeight = if (pagerState.currentPage == index) {FontWeight.Bold} else {FontWeight.Thin
-            } )
-        }, selected = pagerState.currentPage == index
-            , onClick = { /*TODO*/ })
-
-            }
-        }
-
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Preview
-@Composable
-fun AditionalDataTabs_Preview(){
-    val pagerState = PagerState(0) //todo fix?
-
-    AditionalDataTabs(pagerState = pagerState)
-}
-
-//Test with androird developers doc only
-
-@Composable
-fun AditionDataTabs2(){
+fun AditionDataTabs2(comicsList: List<ItemCardData>, seriesList: List<ItemCardData>){
     var state by remember { mutableStateOf(0) }
     val titles = listOf("Comics", "Series")
     Column {
@@ -212,42 +134,62 @@ fun AditionDataTabs2(){
                             } )
                     },
                     selected = state == index,
-
                     onClick = { state = index }
-
                 )
             }
         }
         when(state){
-            0 -> {
-                val test = listOf<ItemCardData>(
-                    ItemCardData(1,"Comic ", ""),
-                    ItemCardData(1,"Comic ", "")
-                )
-                TabContentScreen(itemCardData = test)
-            }
-            1 -> {
-                val test2 = listOf<ItemCardData>(
-                    ItemCardData(1,"Serie ", ""),
-                    ItemCardData(1,"Serie ", "")
-                )
-                TabContentScreen(itemCardData = test2)
-            }
+            0 -> TabContent(itemCardData = comicsList)
+
+            1 -> TabContent(itemCardData = seriesList)
         }
-
-
-
     }
 }
-
-
-
 
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 fun AditionalDataTabs2_Preview(){
-    val pagerState = PagerState(0) //todo fix?
-    AditionDataTabs2()
-  //  AditionalDataTabs(pagerState = pagerState)
+    val comicListTest = emptyList<ItemCardData>()
+    val serieListTest = emptyList<ItemCardData>()
+    AditionDataTabs2(comicListTest, serieListTest)
+}
+
+//---------------------------------------------------------------
+@Composable
+fun TabContentScreen(itemCardData: List<ItemCardData>){
+    Column(modifier = Modifier.height(200.dp)) {
+
+        if(itemCardData.isNotEmpty()){
+            Text(text = itemCardData[0].name)
+        }else{
+            Text(text = "Loading data")
+        }
+    }
+}
+
+
+
+@Composable
+fun TabContent(itemCardData: List<ItemCardData>) {
+    TabContentContent(itemCardData)
+}
+
+@Composable
+fun TabContentContent(itemCardData: List<ItemCardData>) {
+    LazyColumn(){
+        items(items = itemCardData, key = {it.id}){element ->
+            ItemCard(element) {} //empty on click, not action requiered in here.
+        }
+    }
+}
+
+@Preview
+@Composable
+fun TabContent_Preview() {
+    val test = listOf<ItemCardData>(
+        ItemCardData(1,"Comic ", ""),
+        ItemCardData(1,"Comic ", "")
+    )
+    TabContentContent(test)
 }
