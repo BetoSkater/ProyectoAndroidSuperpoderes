@@ -18,7 +18,7 @@ interface HeroeDAO {
     fun insertAllHeroes(heroesList: List<HeroeLocal>)
 
     @Query("UPDATE heroes SET isFavourite=:isFav WHERE id=:herieId")
-    fun updateHeroeFavStateLocal(herieId: String, isFav:Boolean)
+    fun updateHeroeFavStateLocal(herieId: Long, isFav:Boolean)
 
 
 //

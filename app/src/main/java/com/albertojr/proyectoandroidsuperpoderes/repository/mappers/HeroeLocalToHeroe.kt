@@ -18,7 +18,8 @@ class HeroeLocalToHeroe @Inject constructor(){
             heroeLocal.name,
             heroeLocal.description,
 //            heroeLocal.modified,
-            heroeLocal.photo
+            heroeLocal.photo,
+            heroeLocal.isFavourite
         )
     }
 

@@ -12,7 +12,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,6 +47,8 @@ class HeroeListViewModel @Inject constructor(private val repository: Repository)
     private val _stateHeroe = MutableStateFlow<Heroe>(Heroe(-1,"","", "",))
     val stateHeroe: StateFlow<Heroe> get() = _stateHeroe
 
+    private val _stateLikedHeroe = MutableStateFlow<Boolean>(false)
+    val stateLikedHeroe: StateFlow<Boolean> get() = _stateLikedHeroe
 
 
     fun retrieveHeroes(){
@@ -84,5 +88,25 @@ class HeroeListViewModel @Inject constructor(private val repository: Repository)
             _stateHeroe.update { result }
         }
     }
+
+     fun updateHeroeFavStateLocal(id: Long, isFav: Boolean){
+         viewModelScope.launch(Dispatchers.IO) {
+             repository.updateHeroeFavStateLocal(id, isFav)
+             _stateLikedHeroe.update { isFav }
+         }
+
+     }
+
+    fun setLikedHeroeIfHeroeWasLiked(wasFavAtLaunch: Boolean){
+        viewModelScope.launch(Dispatchers.IO) {
+
+           stateHeroe.transform { emit(stateHeroe.value.isFavourite) }.collect(){
+                _stateLikedHeroe.update { it }
+
+            }
+
+        }
+    }
+
 
 }

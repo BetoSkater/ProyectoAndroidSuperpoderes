@@ -46,4 +46,10 @@ class DefaultRepository @Inject constructor(
         return GenericToItemCardData().GenericListToItemCardMapper(remoteDataSource.retrieveHeroeSeries(heroeId))
 
     }
+
+    override suspend fun updateHeroeFavStateLocal(id: Long, isFav: Boolean) {
+        localDataSource.updateHeroeFavStateLocal(id, isFav)
+    }
+
+
 }

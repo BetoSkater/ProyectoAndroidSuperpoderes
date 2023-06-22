@@ -1,5 +1,6 @@
 package com.albertojr.proyectoandroidsuperpoderes.repository.local
 
+import android.util.Log
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.repository.local.models.HeroeLocal
 import com.albertojr.proyectoandroidsuperpoderes.repository.mappers.HeroeLocalToHeroe
@@ -24,7 +25,8 @@ class DefaultLocalDataSource @Inject constructor(
         return HeroeLocalToHeroe().mapHeroeLocalToHeroe(dao.getHeroe(id))
     }
 
-    override suspend fun updateHeroeFavStateLocal(id: String, isFav: Boolean) {
+    override suspend fun updateHeroeFavStateLocal(id: Long, isFav: Boolean) {
+        Log.d("Fav", "Inside DefaultLocalDataSource")
         return dao.updateHeroeFavStateLocal(id, isFav)
     }
 }

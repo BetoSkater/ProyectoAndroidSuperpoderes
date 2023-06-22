@@ -11,6 +11,6 @@ interface LocalDataSource {
 
     suspend fun getHeroe(id: Long): Heroe
 
-    suspend fun updateHeroeFavStateLocal(id: String, isFav: Boolean) //TODO I think i can remove is fav and add it to the query in the DAO as x = !x
+    suspend fun updateHeroeFavStateLocal(id: Long, isFav: Boolean) //TODO I think i can remove is fav and add it to the query in the DAO as x = !x
 
 }

@@ -1,27 +1,22 @@
 package com.albertojr.proyectoandroidsuperpoderes.ui.scaffolds
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
-import androidx.compose.foundation.pager.rememberPagerState
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,11 +24,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,7 +36,6 @@ import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.ui.components.CustomBottomBar
 import com.albertojr.proyectoandroidsuperpoderes.ui.components.CustomTopBar
 import com.albertojr.proyectoandroidsuperpoderes.ui.components.InfoDetailCard
-import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardData
 import com.albertojr.proyectoandroidsuperpoderes.ui.model.ItemCardData
 import com.albertojr.proyectoandroidsuperpoderes.ui.viewModel.HeroeListViewModel
 
@@ -53,22 +46,33 @@ fun HeroeDetailScreen(heroeID: Long, heroeListViewModel: HeroeListViewModel) {
     val stateComics by heroeListViewModel.stateComics.collectAsState()
    // val stateSeries by heroeListViewModel.stateSeries.map { GenericToItemCardData().ItemCardMapper(it) }.collectAsState()
     val stateSeries by heroeListViewModel.stateSeries.collectAsState()
+    val stateLikedHeroe by heroeListViewModel.stateLikedHeroe.collectAsState()
+
     LaunchedEffect(Unit){
         heroeListViewModel.retrieveHeroeWithID(heroeID)
         heroeListViewModel.retrieveHeroeComics(heroeID)
         heroeListViewModel.retrieveHeroeSeries(heroeID)
+       // heroeListViewModel.setLikedHeroeIfHeroeWasLiked(stateHeroe.isFavourite)
     }
 
-    HeroeDetailScreenContent(stateHeroe, stateComics, stateSeries)
+    HeroeDetailScreenContent(stateHeroe, stateComics, stateSeries,stateHeroe.isFavourite){
+        heroeListViewModel.updateHeroeFavStateLocal(stateHeroe.id,stateHeroe.isFavourite)
+        Log.d("Fav", "Heroe is favourite in the local database")
+    }
 }
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 //fun HeroeDetailScreenContent(heroe: Heroe, comicList: List<Comic>, seriesList: List<Serie>) {
-fun HeroeDetailScreenContent(heroe: Heroe, comicList: List<ItemCardData>, seriesList: List<ItemCardData>) {
+fun HeroeDetailScreenContent(heroe: Heroe, comicList: List<ItemCardData>, seriesList: List<ItemCardData>, isLikedHeroe: Boolean, setFav: (Unit) -> (Unit) = {}) {
     Scaffold(
-        topBar = { CustomTopBar() },
-        bottomBar = { CustomBottomBar() },
+        topBar = { CustomTopBar(true) },
+        bottomBar = { CustomBottomBar(true, isLikedHeroe){
+            heroe.isFavourite = !heroe.isFavourite
+            setFav(Unit)
+
+            Log.d("Fav","Clicked ${heroe.name}, with id: ${heroe.id}" )
+        } },
         modifier = Modifier
             .fillMaxSize()
             .fillMaxHeight(),
@@ -91,7 +95,7 @@ fun HeroeDetailScreenContent(heroe: Heroe, comicList: List<ItemCardData>, series
 fun HeroeDetailScreen_Preview() {
     val heroe = Heroe(121221,"goku", "Is the best", "url here", false)
 
-    HeroeDetailScreenContent(heroe, emptyList(), emptyList())
+    HeroeDetailScreenContent(heroe, emptyList(), emptyList(),false)
 }
 //--------------------------------------------------------------------
 
@@ -105,7 +109,7 @@ fun TabMenu(comicsList: List<ItemCardData>, seriesList: List<ItemCardData>) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TabMenuContent(comicsList: List<ItemCardData>, seriesList: List<ItemCardData>) {
-        AditionDataTabs2(comicsList, seriesList)
+        DetailViewTabs(comicsList, seriesList)
 }
 
 @Preview
@@ -118,8 +122,14 @@ fun TabMenu_Preview() {
 }
 // ------------------------------------------------------------------------------
 //TODO I'm missing one C of CAP for this composable
+
 @Composable
-fun AditionDataTabs2(comicsList: List<ItemCardData>, seriesList: List<ItemCardData>){
+fun DetailViewTabs(comicsList: List<ItemCardData>, seriesList: List<ItemCardData>){
+    DetailViewTabsContent(comicsList, seriesList)
+}
+
+@Composable
+fun DetailViewTabsContent(comicsList: List<ItemCardData>, seriesList: List<ItemCardData>){
     var state by remember { mutableStateOf(0) }
     val titles = listOf("Comics", "Series")
     Column {
@@ -127,7 +137,7 @@ fun AditionDataTabs2(comicsList: List<ItemCardData>, seriesList: List<ItemCardDa
         contentColor = Color.Red) {
             titles.forEachIndexed { index, title ->
                 Tab(
-                    text = {
+                    text = { //TODO decouple the text component
                         Text(title,
                             modifier = Modifier.height(40.dp),
                             fontWeight = if (state == index) {FontWeight.Bold} else {FontWeight.Thin
@@ -140,7 +150,6 @@ fun AditionDataTabs2(comicsList: List<ItemCardData>, seriesList: List<ItemCardDa
         }
         when(state){
             0 -> TabContent(itemCardData = comicsList)
-
             1 -> TabContent(itemCardData = seriesList)
         }
     }
@@ -149,26 +158,13 @@ fun AditionDataTabs2(comicsList: List<ItemCardData>, seriesList: List<ItemCardDa
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
-fun AditionalDataTabs2_Preview(){
+fun DetailViewTabs_Preview(){
     val comicListTest = emptyList<ItemCardData>()
     val serieListTest = emptyList<ItemCardData>()
-    AditionDataTabs2(comicListTest, serieListTest)
+    DetailViewTabsContent(comicListTest, serieListTest)
 }
 
 //---------------------------------------------------------------
-@Composable
-fun TabContentScreen(itemCardData: List<ItemCardData>){
-    Column(modifier = Modifier.height(200.dp)) {
-
-        if(itemCardData.isNotEmpty()){
-            Text(text = itemCardData[0].name)
-        }else{
-            Text(text = "Loading data")
-        }
-    }
-}
-
-
 
 @Composable
 fun TabContent(itemCardData: List<ItemCardData>) {
@@ -192,4 +188,10 @@ fun TabContent_Preview() {
         ItemCardData(1,"Comic ", "")
     )
     TabContentContent(test)
+}
+
+//----------------------------------------------------
+
+fun setFav(id:Long){
+
 }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.AlertDialogDefaults.containerColor
@@ -27,50 +28,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CustomBottomBar() {
-    CustomBottomBarContent()
+fun CustomBottomBar(hasFloatingButton: Boolean = false, isLikedIcon: Boolean = false, onFloatingButtonClicked: (Boolean) -> (Unit) = {}) {
+    CustomBottomBarContent(hasFloatingButton,isLikedIcon, onFloatingButtonClicked)
 }
 
 @Composable
-fun CustomBottomBarContent() {
+fun CustomBottomBarContent(hasFloatingButton: Boolean = false, isLikedIcon: Boolean = false, onFloatingButtonClicked: (Boolean) -> (Unit) = {}) {
     //TODO this bar can hold a floating button, add the filter to fav heroes in that button
-
-
-//    BottomAppBar(
-//        actions = TestAction(),
-//        modifier = Modifier,
-//        floatingActionButton = { CustomFloatingActionButton() },
-//        containerColor = BottomAppBarDefaults.containerColor,
-//        contentColor = contentColorFor(containerColor),
-//        tonalElevation = BottomAppBarDefaults.ContainerElevation,
-//        contentPadding = BottomAppBarDefaults.ContentPadding,
-//        windowInsets = BottomAppBarDefaults.windowInsets,
-//    ) {
-
       BottomAppBar(
           actions = {TestAction()},
           modifier = Modifier,
-          floatingActionButton = { CustomFloatingActionButton()},
+          floatingActionButton = {if(hasFloatingButton){ CustomFloatingActionButton(isLikedIcon, onFloatingButtonClicked)}},
           )
-
-    }
-
-  //  TODO remove this one, theone I want is the FAB one
-
-//    BottomAppBar() {
-//        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
-//            FloatingActionButton(onClick = { /*TODO*/ }) {
-//                Icon(
-//                    imageVector = Icons.Default.Favorite,
-//                    tint = Color.Red,
-//                    contentDescription = "Filter fav heroes"
-//                )
-//            }
-//        }
-//    }
-
-//}
-
+}
 
 @Preview
 @Composable
@@ -78,12 +48,12 @@ fun CustomBottomBar_Preview() {
     CustomBottomBarContent()
 }
 
-
+//----------------------------------------------------
 @Composable
-fun CustomFloatingActionButton() {
-    FloatingActionButton(onClick = { /*TODO*/ }) {
+fun CustomFloatingActionButton(isLikedIcon: Boolean = false, onFloatingButtonClicked: (Boolean) -> (Unit) = {}) {
+    FloatingActionButton(onClick = { onFloatingButtonClicked(true) }) {
         Icon(
-            imageVector = Icons.Default.Favorite,
+            imageVector = if(isLikedIcon){Icons.Default.Favorite } else {Icons.Default.FavoriteBorder} ,
             tint = Color.Red,
             contentDescription = "Filter fav heroes"
         )
@@ -96,7 +66,7 @@ fun CustomFloatingActionButton_Preview() {
     CustomFloatingActionButton()
 }
 
-
+//------ GO HOME SCREEN BUTTON
 @Composable
 fun TestAction() {
     Row() {

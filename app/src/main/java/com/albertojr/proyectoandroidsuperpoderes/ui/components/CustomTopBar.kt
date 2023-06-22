@@ -10,18 +10,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun CustomTopBar() {
-    CustomTopBarContent()
+fun CustomTopBar(isExtendedTopBar: Boolean = false) {
+    CustomTopBarContent(isExtendedTopBar)
 }
 //TODO detail view needs at leat a MediumTopAppBar, because it has the return funtionality
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopBarContent() {
-    TopAppBar(
-        title = {
-            Text("Marvel Heroes") //TODO past string id as parameter
-        }
-    )
+fun CustomTopBarContent(isExtendedTopBar: Boolean = false) {
+    if(isExtendedTopBar){
+        MediumTopAppBar(
+            title = {
+                Text("Detailed Heroe") //TODO past string id as parameter
+            }
+        )
+    }else{
+        TopAppBar(
+            title = {
+                Text("Marvel Heroes") //TODO past string id as parameter
+            }
+        )
+    }
+
+
+
 }
 
 @Preview

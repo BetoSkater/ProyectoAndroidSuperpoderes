@@ -11,4 +11,7 @@ interface Repository {
 //
     suspend fun retrieveHeroeComics(heroeId: Long): List<ItemCardData>
     suspend fun retrieveHeroeSeries(heroeId: Long): List<ItemCardData>
+
+    suspend fun updateHeroeFavStateLocal(id: Long, isFav: Boolean)
+
 }
