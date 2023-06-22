@@ -52,10 +52,11 @@ fun HeroeDetailScreen(heroeID: Long, heroeListViewModel: HeroeListViewModel) {
         heroeListViewModel.retrieveHeroeWithID(heroeID)
         heroeListViewModel.retrieveHeroeComics(heroeID)
         heroeListViewModel.retrieveHeroeSeries(heroeID)
-       // heroeListViewModel.setLikedHeroeIfHeroeWasLiked(stateHeroe.isFavourite)
+        heroeListViewModel.setLikedHeroeIfHeroeWasLiked(stateHeroe.isFavourite)
     }
 
-    HeroeDetailScreenContent(stateHeroe, stateComics, stateSeries,stateHeroe.isFavourite){
+ //   HeroeDetailScreenContent(stateHeroe, stateComics, stateSeries,stateHeroe.isFavourite){
+    HeroeDetailScreenContent(stateHeroe, stateComics, stateSeries,stateLikedHeroe){
         heroeListViewModel.updateHeroeFavStateLocal(stateHeroe.id,stateHeroe.isFavourite)
         Log.d("Fav", "Heroe is favourite in the local database")
     }

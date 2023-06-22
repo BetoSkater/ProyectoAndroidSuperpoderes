@@ -93,7 +93,9 @@ class HeroeListViewModel @Inject constructor(private val repository: Repository)
          viewModelScope.launch(Dispatchers.IO) {
              repository.updateHeroeFavStateLocal(id, isFav)
              _stateLikedHeroe.update { isFav }
+           //  _stateHeroe.value.isFavourite == isFav
          }
+       //  updateHeroeListAfterHeroeWasLiked()
 
      }
 
@@ -104,6 +106,26 @@ class HeroeListViewModel @Inject constructor(private val repository: Repository)
                 _stateLikedHeroe.update { it }
 
             }
+
+        }
+    }
+
+    fun updateHeroeListAfterHeroeWasLiked(){
+        viewModelScope.launch(Dispatchers.IO) {
+
+          val valueToUpdate = stateHeroe.transform {
+               emit(stateHeroe)
+
+           }.collect()
+
+            state.map { heroeList ->
+                heroeList.find { listHeroe ->
+                    listHeroe.id == stateHeroe.value.id }?.isFavourite = stateHeroe.value.isFavourite
+            }.collect(){
+                _state.update { it }
+
+            }
+
 
         }
     }
