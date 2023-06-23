@@ -52,7 +52,7 @@ fun HeroeDetailScreen(heroeID: Long, heroeListViewModel: HeroeListViewModel) {
         heroeListViewModel.retrieveHeroeWithID(heroeID)
         heroeListViewModel.retrieveHeroeComics(heroeID)
         heroeListViewModel.retrieveHeroeSeries(heroeID)
-        heroeListViewModel.setLikedHeroeIfHeroeWasLiked(stateHeroe.isFavourite)
+        heroeListViewModel.setLikedHeroeIfHeroeWasLiked(heroeID)
     }
 
  //   HeroeDetailScreenContent(stateHeroe, stateComics, stateSeries,stateHeroe.isFavourite){

@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.flow.update
@@ -99,12 +100,17 @@ class HeroeListViewModel @Inject constructor(private val repository: Repository)
 
      }
 
-    fun setLikedHeroeIfHeroeWasLiked(wasFavAtLaunch: Boolean){
+    fun setLikedHeroeIfHeroeWasLiked(heroeID: Long){
         viewModelScope.launch(Dispatchers.IO) {
 
-           stateHeroe.transform { emit(stateHeroe.value.isFavourite) }.collect(){
-                _stateLikedHeroe.update { it }
-
+//           stateHeroe.transform { emit(stateHeroe.value.isFavourite) }.collect(){
+//                _stateLikedHeroe.update { it }
+//
+//            }
+            stateHeroe.filter {heroe ->
+                heroe.id == heroeID
+            }.collect(){foundHeroe ->
+                _stateLikedHeroe.update { foundHeroe.isFavourite }
             }
 
         }
