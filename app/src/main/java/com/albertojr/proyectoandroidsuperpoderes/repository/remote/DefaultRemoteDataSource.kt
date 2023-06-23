@@ -16,21 +16,18 @@ import javax.inject.Singleton
 @Singleton
 class DefaultRemoteDataSource @Inject constructor(private val api: MarvelApi): RemoteDataSource {
     override suspend fun retrieveHeroes(): List<Heroe> {
-       try {
-           val ts = getTimeStamp()
-           val apikey = getApiKey()
-           val hash = generateHashMD5(ts)
-           val orderBy= "-modified" //TODO change if needed
+        try {
+            val ts = getTimeStamp()
+            val apikey = getApiKey()
+            val hash = generateHashMD5(ts)
+            val orderBy= "-modified" //TODO change if needed
 
-           val result = api.retrieveHeroes(ts, apikey,hash,orderBy)
-           //return HeroeApiResultToRemoteHeroe().mapHeroeApiResultToRemoteHeroe(result)
-           return HeroeRemoteToHeroe().mapHeroesRemoteToHeroes(result.data.results)
-       }catch (exception: Exception){
-           Log.w("Error", "Heroes Call error: $exception")
-           return emptyList<Heroe>()
-       }
-
-
+            val result = api.retrieveHeroes(ts, apikey,hash,orderBy)
+            return HeroeRemoteToHeroe().mapHeroesRemoteToHeroes(result.data.results)
+        }catch (exception: Exception){
+            Log.w("Error", "Heroes Call error: $exception")
+            return emptyList<Heroe>()
+        }
     }
 
     override suspend fun retrieveHeroeComics(heroeId: Long): List<Comic> {
@@ -39,16 +36,14 @@ class DefaultRemoteDataSource @Inject constructor(private val api: MarvelApi): R
             val ts = getTimeStamp()
             val apikey = getApiKey()
             val hash = generateHashMD5(ts)
-            val orderBy= "onsaleDate" //TODO change if needed
+            val orderBy= "onsaleDate"
 
             val result = api.retrieveHeroeComics(heroeId,ts,apikey,hash,orderBy)
             return ComicResultToComic().mapComicResultToComics(result.data.results) //TODO refactor the result.data.results
         }catch (exception: Exception){
             Log.w("Error", "Comic Call error: $exception")
-        return emptyList<Comic>()
-    }
-
-
+            return emptyList<Comic>()
+        }
     }
 
     override suspend fun retrieveHeroeSeries(heroeId: Long): List<Serie> {
@@ -56,7 +51,7 @@ class DefaultRemoteDataSource @Inject constructor(private val api: MarvelApi): R
             val ts = getTimeStamp()
             val apikey = getApiKey()
             val hash = generateHashMD5(ts)
-            val orderBy= "startYear" //TODO change if needed
+            val orderBy= "startYear"
 
             val result = api.retrieveHeroeSeries(heroeId,ts,apikey,hash,orderBy).data.results //TODO refactor the result.data.results
             return SerieResultToSerie().mapSerieResultToSeries(result)
@@ -65,8 +60,6 @@ class DefaultRemoteDataSource @Inject constructor(private val api: MarvelApi): R
             return emptyList<Serie>()
         }
     }
-
-
     //RequestData
     private fun getTimeStamp(): Long{
         return System.currentTimeMillis()
@@ -81,6 +74,3 @@ class DefaultRemoteDataSource @Inject constructor(private val api: MarvelApi): R
         return String.format("%32x",bigInt)
     }
 }
-
-
-

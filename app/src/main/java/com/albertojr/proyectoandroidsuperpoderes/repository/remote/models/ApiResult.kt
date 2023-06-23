@@ -1,4 +1,4 @@
-package com.albertojr.proyectoandroidsuperpoderes.repository.remote
+package com.albertojr.proyectoandroidsuperpoderes.repository.remote.models
 
 data class ApiResult<T> (
     val code: Long,

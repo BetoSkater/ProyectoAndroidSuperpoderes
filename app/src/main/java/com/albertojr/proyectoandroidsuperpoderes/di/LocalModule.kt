@@ -13,7 +13,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 object LocalModule {
-
     @Provides
     fun provideHeroeDataBase(@ApplicationContext context: Context) : HeroeDataBase{
         return Room.databaseBuilder(

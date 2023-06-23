@@ -20,14 +20,4 @@ interface HeroeDAO {
     @Query("UPDATE heroes SET isFavourite=:isFav WHERE id=:herieId")
     fun updateHeroeFavStateLocal(herieId: Long, isFav:Boolean)
 
-
-//
-//    //Pictures Table
-//    @Query("SELECT * FROM pictures WHERE heroe_id = :heroeID")
-//    fun getPicture(heroeID: String): PictureLoccal
-//
-//   // @Query("INSERT into pictures VALUES :picturesList") // Fix
-//    @Insert
-//    fun insertAllPictures(picturesList: List<PictureLoccal>)
-
 }

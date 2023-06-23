@@ -16,3 +16,10 @@ pero en caso de que salte, no se cargan las series y peliculas. Se puede ir atr�
    * Cuadrante Inferior: TabRow con dos pestanas, una muestra los comics en los que aparece el personaje y la otra, las series.
      * Como componente no visto en clase he optado por TabRow porque como se tenía que mostrar información de dos endpoints, me apetecía
      hacerlo de esta forma ya que no la había usado.
+
+4) Cuando un heroe pasa a ser favorito, se actualiza el vlaor del listado que incluye a todos los personajes, pasando su estaso a favorito.
+
+#####     El valor del favorito no influye para la lista de heroes, por lo que toca **depurar para poder ver el cambio.** 
+
+
+5) 

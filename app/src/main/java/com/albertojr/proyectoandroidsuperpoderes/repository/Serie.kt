@@ -1,7 +1,4 @@
 package com.albertojr.proyectoandroidsuperpoderes.repository
-
-import com.albertojr.proyectoandroidsuperpoderes.repository.remote.Thumbnail
-
 data class Serie (
     val id: Long,
     val title: String,
@@ -9,6 +6,5 @@ data class Serie (
     val endYear: Long,
     val rating: String,
     val type: String,
-//    val thumbnail: Thumbnail,
-val picture: String
+    val picture: String
 )

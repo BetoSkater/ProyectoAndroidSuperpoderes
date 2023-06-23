@@ -14,7 +14,6 @@ class HeroeRemoteToHeroeLocal {
             heroeRemote.id,
             heroeRemote.name,
             heroeRemote.description,
-//            heroeRemote.modified,
             ThubmailToURL().generateImageURLFromThumnail(heroeRemote.thumbnail)
         )
     }

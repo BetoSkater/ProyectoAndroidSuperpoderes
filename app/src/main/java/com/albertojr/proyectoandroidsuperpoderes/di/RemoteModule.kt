@@ -1,6 +1,5 @@
 package com.albertojr.proyectoandroidsuperpoderes.di
 
-import androidx.room.PrimaryKey
 import com.albertojr.proyectoandroidsuperpoderes.repository.remote.MarvelApi
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -23,8 +22,6 @@ object RemoteModule {
             .addLast(KotlinJsonAdapterFactory())
             .build()
     }
-
-
     @Provides
     fun provideOkHttp(): OkHttpClient{
         return OkHttpClient.Builder()
@@ -37,7 +34,6 @@ object RemoteModule {
                     }
             ).build()
     }
-
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit{
         return Retrofit
@@ -47,13 +43,8 @@ object RemoteModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
-
     @Provides
     fun provideApi(retrofit: Retrofit):MarvelApi{
         return retrofit.create(MarvelApi::class.java)
     }
-
-
-
-
 }

@@ -1,7 +1,6 @@
 package com.albertojr.proyectoandroidsuperpoderes.repository.local
 
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
-import com.albertojr.proyectoandroidsuperpoderes.repository.local.models.HeroeLocal
 
 interface LocalDataSource {
 

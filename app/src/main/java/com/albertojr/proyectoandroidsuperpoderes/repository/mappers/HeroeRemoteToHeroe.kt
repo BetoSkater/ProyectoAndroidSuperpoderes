@@ -5,7 +5,6 @@ import com.albertojr.proyectoandroidsuperpoderes.repository.remote.models.HeroeR
 import javax.inject.Inject
 
 class HeroeRemoteToHeroe @Inject constructor() {
-
     fun mapHeroesRemoteToHeroes(heroeRemoteList: List<HeroeRemote>): List<Heroe>{
         return heroeRemoteList.map{mapHeroeRemoteToHeroe(it)}
     }
@@ -14,7 +13,6 @@ class HeroeRemoteToHeroe @Inject constructor() {
             heroeRemote.id,
             heroeRemote.name,
             heroeRemote.description,
-//            heroeRemote.modified,
             ThubmailToURL().generateImageURLFromThumnail(heroeRemote.thumbnail)
         )
     }

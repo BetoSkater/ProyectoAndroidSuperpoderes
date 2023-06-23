@@ -8,7 +8,6 @@ class SerieResultToSerie @Inject constructor() {
     fun mapSerieResultToSeries(seriesResultList: List<SerieRemote>): List<Serie> {
         return seriesResultList.map { mapSerieResultToSerie(it) }
     }
-
     private fun mapSerieResultToSerie(serieResult: SerieRemote): Serie {
         return Serie(
             serieResult.id,
@@ -17,6 +16,7 @@ class SerieResultToSerie @Inject constructor() {
             serieResult.endYear,
             serieResult.rating,
             serieResult.type,
-            ThubmailToURL().generateImageURLFromThumnail(serieResult.thumbnail)        )
+            ThubmailToURL().generateImageURLFromThumnail(serieResult.thumbnail)
+        )
     }
 }

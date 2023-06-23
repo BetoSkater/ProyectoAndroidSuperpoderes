@@ -11,14 +11,12 @@ class HeroesToHeroeLocal @Inject constructor() {
     }
 
     //This one is public to in order to reuse it the while retrieven a single heroe from the localDataBase
-     fun mapHeroeToHeroeLocal(heroe: Heroe): HeroeLocal {
+    fun mapHeroeToHeroeLocal(heroe: Heroe): HeroeLocal {
         return HeroeLocal(
             heroe.id,
             heroe.name,
             heroe.description,
-//            heroe.modified,
             heroe.picture
         )
     }
-
 }
