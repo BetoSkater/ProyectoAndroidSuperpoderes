@@ -19,15 +19,10 @@ fun NavigationGraph(heroeListViewModel: HeroeListViewModel) {
         composable(Screens.HeroesListScreen.route) {
             HeroesListScreen(heroeListViewModel = heroeListViewModel) {
               Log.d("Clicked", "Hero with id $it clicked")
-              //TODO remove
                 val route = Screens.HeroesDetailScreen.createRouteWithArgs(it)
                 Log.d("Clicked", "$route")
-
                navController.navigate(Screens.HeroesDetailScreen.createRouteWithArgs(it))
-              // navController.navigate("HeroesDetailScreen/$it")
-
             }
-
         }
         composable(Screens.HeroesDetailScreen.route, arguments = listOf(
             navArgument(Screens.HeroesDetailScreen.ARG_HEROE_ID){
@@ -36,7 +31,6 @@ fun NavigationGraph(heroeListViewModel: HeroeListViewModel) {
         )) {
             val heroeID = it.arguments?.getLong(Screens.HeroesDetailScreen.ARG_HEROE_ID)
             Log.d("Clicked", "Argument: ${it.destination.arguments.values} $heroeID")
-
             if (heroeID != null) {
                 HeroeDetailScreen( heroeID,heroeListViewModel = heroeListViewModel){
                     navController.navigateUp()

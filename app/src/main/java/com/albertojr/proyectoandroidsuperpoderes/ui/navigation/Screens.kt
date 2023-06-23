@@ -6,9 +6,8 @@ sealed class Screens(val route: String) {
     object HeroesListScreen : Screens(SCREEN1_BASE_ROUTE)
     object HeroesDetailScreen : Screens(SCREEN2_ROUTE_TEMPLATE){
         const val ARG_HEROE_ID = "heroeId"
-        fun createRouteWithArgs(heroeId: Long): String{ //TODO check
-           return SCREEN2_ROUTE_TO_FORMAT.format(heroeId) //Returns HeroesDetailScreen/heroeId
-           // return "HeroesDetailScreen/$heroeId"
+        fun createRouteWithArgs(heroeId: Long): String{
+           return SCREEN2_ROUTE_TO_FORMAT.format(heroeId)
         }
     }
     companion object{

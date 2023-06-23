@@ -3,18 +3,17 @@ package com.albertojr.proyectoandroidsuperpoderes.ui.components
 import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LargeTopAppBar
-import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.albertojr.proyectoandroidsuperpoderes.R
 
 @Composable
 fun CustomTopBar(isExtendedTopBar: Boolean = false, onBackToHeroeListClicled: (Unit) -> (Unit) = {}) {
@@ -25,25 +24,17 @@ fun CustomTopBar(isExtendedTopBar: Boolean = false, onBackToHeroeListClicled: (U
 @Composable
 fun CustomTopBarContent(isExtendedTopBar: Boolean = false,onBackToHeroeListClicled: (Unit) -> (Unit) = {}) {
     if(isExtendedTopBar){
-//        MediumTopAppBar(
         TopAppBar(
             title = {
-                Text("Detailed Heroe") //TODO past string id as parameter
+                Text(stringResource(id = R.string.character_detail))
             },
             navigationIcon = {BackButtonTopBar(onBackToHeroeListClicled)}
-
-
         )
     }else{
-        TopAppBar(
-            title = {
-                Text("Marvel Heroes") //TODO past string id as parameter
-            }
-        )
+        CenterAlignedTopAppBar(title = {
+            Text(stringResource(id = R.string.marvel_heroes))
+        })
     }
-
-
-
 }
 
 @Preview

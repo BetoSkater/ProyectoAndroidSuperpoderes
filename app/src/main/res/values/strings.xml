@@ -6,4 +6,6 @@
     <string name="detail_comics">Comics</string>
     <string name="detail_series">Series</string>
     <string name="character_image">Character Image</string>
+    <string name="go_to_characters_list">Go to home screen</string>
+    <string name="description_not_aviable">description not aviable.</string>
 </resources>

@@ -2,32 +2,22 @@ package com.albertojr.proyectoandroidsuperpoderes.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.AlertDialogDefaults.containerColor
-
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.albertojr.proyectoandroidsuperpoderes.R
 
 @Composable
 fun CustomBottomBar(hasFloatingButton: Boolean = false, isLikedIcon: Boolean = false,onBackToHeroeListClicled: (Unit) -> (Unit) = {}, onFloatingButtonClicked: (Boolean) -> (Unit) = {}) {
@@ -37,11 +27,11 @@ fun CustomBottomBar(hasFloatingButton: Boolean = false, isLikedIcon: Boolean = f
 @Composable
 fun CustomBottomBarContent(hasFloatingButton: Boolean = false, isLikedIcon: Boolean = false, onBackToHeroeListClicled: (Unit) -> (Unit) = {}, onFloatingButtonClicked: (Boolean) -> (Unit) = {}) {
     //TODO this bar can hold a floating button, add the filter to fav heroes in that button
-      BottomAppBar(
-          actions = {TestAction(onBackToHeroeListClicled)},
-          modifier = Modifier.background(Color.White),
-          floatingActionButton = {if(hasFloatingButton){ CustomFloatingActionButton(isLikedIcon, onFloatingButtonClicked)}},
-          )
+    BottomAppBar(
+        actions = {GoToHomeScreenButton(onBackToHeroeListClicled)},
+        modifier = Modifier.background(Color.White),
+        floatingActionButton = {if(hasFloatingButton){ CustomFloatingActionButton(isLikedIcon, onFloatingButtonClicked)}},
+    )
 }
 
 @Preview
@@ -70,15 +60,26 @@ fun CustomFloatingActionButton_Preview() {
 
 //------ GO HOME SCREEN BUTTON
 @Composable
-fun TestAction(onBackToHeroeListClicled: (Unit) -> (Unit) = {}) {
+fun GoToHomeScreenButton(onBackToHeroeListClicled: (Unit) -> (Unit) = {}) {
+    GoToHomeScreenButtonContent(onBackToHeroeListClicled)
+}
+
+@Composable
+fun GoToHomeScreenButtonContent(onBackToHeroeListClicled: (Unit) -> (Unit) = {}) {
     Row() {
         Icon(
             imageVector = Icons.Default.Home,
-            tint = Color.Black,
-            contentDescription = "Filter fav heroes",
-            modifier = Modifier.clickable {
+            tint = Color.DarkGray,
+            contentDescription = stringResource(id = R.string.go_to_characters_list ) ,
+            modifier = Modifier.padding(20.dp).clickable {
                 onBackToHeroeListClicled(Unit)
             }
         )
     }
+}
+
+@Preview
+@Composable
+fun GoToHomeScreenButton_Preview() {
+    GoToHomeScreenButtonContent()
 }

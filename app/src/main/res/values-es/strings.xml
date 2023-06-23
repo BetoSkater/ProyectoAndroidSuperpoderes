@@ -7,4 +7,6 @@
     <string name="detail_comics">Comics</string>
     <string name="detail_series">Series</string>
     <string name="character_image">Imagen del personaje</string>
+    <string name="go_to_characters_list">Ir a la pantalla principal</string>
+    <string name="description_not_aviable">Descripción no disponible.</string>
 </resources>

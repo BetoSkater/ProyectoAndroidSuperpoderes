@@ -7,12 +7,10 @@ import com.albertojr.proyectoandroidsuperpoderes.repository.Serie
 
 class GenericToItemCardData {
 
-    fun <T> ItemCardMapper(elementToDisplay:T) : ItemCardData {
+    fun <T> ItemCardMapper(elementToDisplay: T): ItemCardData {
 
         val itemCardData = ItemCardData()
-
-        when(elementToDisplay){
-            //todo should I create a new object with an enum ty,pe, id , name and picture??
+        when (elementToDisplay) {
             is Heroe -> {
                 itemCardData.id = elementToDisplay.id
                 itemCardData.name = elementToDisplay.name
@@ -29,44 +27,17 @@ class GenericToItemCardData {
                 itemCardData.image = elementToDisplay.picture
             }
             else -> {
-                //TODO add Something went wrong or whatever
+                //Default object
             }
         }
-
         return itemCardData
     }
 
-    fun <T> GenericListToItemCardMapper(elementToTransform:List<T>) : List<ItemCardData> {
-
-    //   var resultList = List<ItemCardData>(elementToTransform.size)
-       var resultList = mutableListOf<ItemCardData>()
-
+    fun <T> GenericListToItemCardMapper(elementToTransform: List<T>): List<ItemCardData> {
+        var resultList = mutableListOf<ItemCardData>()
         elementToTransform.forEach {
-            val itemCardData = ItemCardData()
-            when(it){
-                //todo should I create a new object with an enum ty,pe, id , name and picture??
-                is Heroe -> {
-                    itemCardData.id = it.id
-                    itemCardData.name = it.name
-                    itemCardData.image = it.picture
-                }
-                is Comic -> {
-                    itemCardData.id = it.id
-                    itemCardData.name = it.title
-                    itemCardData.image = it.picture
-                }
-                is Serie -> {
-                    itemCardData.id = it.id
-                    itemCardData.name = it.title
-                    itemCardData.image = it.picture
-                }
-                else -> {
-                    //TODO add Something went wrong or whatever
-                }
-            }
-            resultList.add(itemCardData)
+            resultList.add(ItemCardMapper(it))
         }
         return resultList
     }
-
 }
