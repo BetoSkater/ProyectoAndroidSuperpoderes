@@ -96,42 +96,47 @@ class HeroeListViewModel @Inject constructor(private val repository: Repository)
              _stateLikedHeroe.update { isFav }
            //  _stateHeroe.value.isFavourite == isFav
          }
-       //  updateHeroeListAfterHeroeWasLiked()
+         updateHeroeListAfterHeroeWasLiked(id)
 
      }
 
     fun setLikedHeroeIfHeroeWasLiked(heroeID: Long){
         viewModelScope.launch(Dispatchers.IO) {
 
-//           stateHeroe.transform { emit(stateHeroe.value.isFavourite) }.collect(){
-//                _stateLikedHeroe.update { it }
-//
-//            }
             stateHeroe.filter {heroe ->
                 heroe.id == heroeID
             }.collect(){foundHeroe ->
                 _stateLikedHeroe.update { foundHeroe.isFavourite }
             }
-
         }
     }
 
-    fun updateHeroeListAfterHeroeWasLiked(){
+    fun updateHeroeListAfterHeroeWasLiked(heroeID: Long){
         viewModelScope.launch(Dispatchers.IO) {
 
-          val valueToUpdate = stateHeroe.transform {
-               emit(stateHeroe)
+//          val valueToUpdate = stateHeroe.transform {
+//               emit(stateHeroe)
+//
+//           }.collect()
+//
+//            state.map { heroeList ->
+//                heroeList.find { listHeroe ->
+//                    listHeroe.id == stateHeroe.value.id }?.isFavourite = stateHeroe.value.isFavourite
+//            }.collect(){
+//                _state.update { it }
+//
+//            }
 
-           }.collect()
+            state.map {heroesListToMap ->
+                val heroeIndex = heroesListToMap.indexOfFirst {targetHeroe ->
+                targetHeroe.id == heroeID }
+                heroesListToMap[heroeIndex].isFavourite = !heroesListToMap[heroeIndex].isFavourite
 
-            state.map { heroeList ->
-                heroeList.find { listHeroe ->
-                    listHeroe.id == stateHeroe.value.id }?.isFavourite = stateHeroe.value.isFavourite
             }.collect(){
-                _state.update { it }
-
+                _state.update {
+                    it
+                }
             }
-
 
         }
     }
