@@ -1,5 +1,6 @@
 package com.albertojr.proyectoandroidsuperpoderes.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -28,15 +29,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CustomBottomBar(hasFloatingButton: Boolean = false, isLikedIcon: Boolean = false, onFloatingButtonClicked: (Boolean) -> (Unit) = {}) {
-    CustomBottomBarContent(hasFloatingButton,isLikedIcon, onFloatingButtonClicked)
+fun CustomBottomBar(hasFloatingButton: Boolean = false, isLikedIcon: Boolean = false,onBackToHeroeListClicled: (Unit) -> (Unit) = {}, onFloatingButtonClicked: (Boolean) -> (Unit) = {}) {
+    CustomBottomBarContent(hasFloatingButton,isLikedIcon,onBackToHeroeListClicled, onFloatingButtonClicked)
 }
 
 @Composable
-fun CustomBottomBarContent(hasFloatingButton: Boolean = false, isLikedIcon: Boolean = false, onFloatingButtonClicked: (Boolean) -> (Unit) = {}) {
+fun CustomBottomBarContent(hasFloatingButton: Boolean = false, isLikedIcon: Boolean = false, onBackToHeroeListClicled: (Unit) -> (Unit) = {}, onFloatingButtonClicked: (Boolean) -> (Unit) = {}) {
     //TODO this bar can hold a floating button, add the filter to fav heroes in that button
       BottomAppBar(
-          actions = {TestAction()},
+          actions = {TestAction(onBackToHeroeListClicled)},
           modifier = Modifier,
           floatingActionButton = {if(hasFloatingButton){ CustomFloatingActionButton(isLikedIcon, onFloatingButtonClicked)}},
           )
@@ -68,12 +69,15 @@ fun CustomFloatingActionButton_Preview() {
 
 //------ GO HOME SCREEN BUTTON
 @Composable
-fun TestAction() {
+fun TestAction(onBackToHeroeListClicled: (Unit) -> (Unit) = {}) {
     Row() {
         Icon(
             imageVector = Icons.Default.Home,
             tint = Color.Black,
-            contentDescription = "Filter fav heroes"
+            contentDescription = "Filter fav heroes",
+            modifier = Modifier.clickable {
+                onBackToHeroeListClicled(Unit)
+            }
         )
     }
 }

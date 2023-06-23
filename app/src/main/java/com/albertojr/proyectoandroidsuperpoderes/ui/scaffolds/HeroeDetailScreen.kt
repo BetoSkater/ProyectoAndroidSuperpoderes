@@ -40,7 +40,7 @@ import com.albertojr.proyectoandroidsuperpoderes.ui.model.ItemCardData
 import com.albertojr.proyectoandroidsuperpoderes.ui.viewModel.HeroeListViewModel
 
 @Composable
-fun HeroeDetailScreen(heroeID: Long, heroeListViewModel: HeroeListViewModel) {
+fun HeroeDetailScreen(heroeID: Long, heroeListViewModel: HeroeListViewModel, onBackToHeroeListClicled: (Unit) -> (Unit) = {}) {
     //val state by heroeListViewModel.state.collectAsState()
     val stateHeroe by heroeListViewModel.stateHeroe.collectAsState()
     val stateComics by heroeListViewModel.stateComics.collectAsState()
@@ -56,7 +56,7 @@ fun HeroeDetailScreen(heroeID: Long, heroeListViewModel: HeroeListViewModel) {
     }
 
  //   HeroeDetailScreenContent(stateHeroe, stateComics, stateSeries,stateHeroe.isFavourite){
-    HeroeDetailScreenContent(stateHeroe, stateComics, stateSeries,stateLikedHeroe){
+    HeroeDetailScreenContent(stateHeroe, stateComics, stateSeries,stateLikedHeroe,onBackToHeroeListClicled){
         heroeListViewModel.updateHeroeFavStateLocal(stateHeroe.id,stateHeroe.isFavourite)
         Log.d("Fav", "Heroe is favourite in the local database")
     }
@@ -65,10 +65,10 @@ fun HeroeDetailScreen(heroeID: Long, heroeListViewModel: HeroeListViewModel) {
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 //fun HeroeDetailScreenContent(heroe: Heroe, comicList: List<Comic>, seriesList: List<Serie>) {
-fun HeroeDetailScreenContent(heroe: Heroe, comicList: List<ItemCardData>, seriesList: List<ItemCardData>, isLikedHeroe: Boolean, setFav: (Unit) -> (Unit) = {}) {
+fun HeroeDetailScreenContent(heroe: Heroe, comicList: List<ItemCardData>, seriesList: List<ItemCardData>, isLikedHeroe: Boolean,onBackToHeroeListClicled: (Unit) -> (Unit) = {}, setFav: (Unit) -> (Unit) = {}) {
     Scaffold(
-        topBar = { CustomTopBar(true) },
-        bottomBar = { CustomBottomBar(true, isLikedHeroe){
+        topBar = { CustomTopBar(true,onBackToHeroeListClicled) },
+        bottomBar = { CustomBottomBar(true, isLikedHeroe, onBackToHeroeListClicled){
             heroe.isFavourite = !heroe.isFavourite
             setFav(Unit)
 

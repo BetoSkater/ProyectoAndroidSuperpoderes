@@ -38,7 +38,9 @@ fun NavigationGraph(heroeListViewModel: HeroeListViewModel) {
             Log.d("Clicked", "Argument: ${it.destination.arguments.values} $heroeID")
 
             if (heroeID != null) {
-                HeroeDetailScreen( heroeID,heroeListViewModel = heroeListViewModel)
+                HeroeDetailScreen( heroeID,heroeListViewModel = heroeListViewModel){
+                    navController.navigateUp()
+                }
             } else{
                 navController.navigateUp()
             }
