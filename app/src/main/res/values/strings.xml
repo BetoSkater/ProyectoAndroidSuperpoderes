@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ProyectoAndroidSuperpoderes</string>
+    <string name="marvel_heroes">Marvel Characters</string>
+    <string name="character_detail">Character Detail</string>
+    <string name="default_accesibility_text">Sorry, more details after the testing is done</string>
+    <string name="detail_comics">Comics</string>
+    <string name="detail_series">Series</string>
+    <string name="character_image">Character Image</string>
 </resources>

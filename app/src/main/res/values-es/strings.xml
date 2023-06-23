@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ProyectoAndroidSuperpoderes</string>
+    <string name="marvel_heroes">Personajes de Marvel</string>
+    <string name="character_detail">Detalle del Personaje</string>
+    <string name="default_accesibility_text">Lo siento, cuando termine el testing le pongo valores</string>
+    <string name="detail_comics">Comics</string>
+    <string name="detail_series">Series</string>
+    <string name="character_image">Imagen del personaje</string>
+</resources>

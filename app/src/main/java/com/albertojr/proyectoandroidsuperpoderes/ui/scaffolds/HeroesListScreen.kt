@@ -3,8 +3,10 @@ package com.albertojr.proyectoandroidsuperpoderes.ui.scaffolds
 import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,6 +30,8 @@ import com.albertojr.proyectoandroidsuperpoderes.ui.mappers.GenericToItemCardDat
 import com.albertojr.proyectoandroidsuperpoderes.ui.navigation.NavigationGraph
 import com.albertojr.proyectoandroidsuperpoderes.ui.viewModel.HeroeListViewModel
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.flow.map
 
 
@@ -72,7 +76,7 @@ fun HeroesListScreenContent(heroes: List<Heroe>, onHeroeListClicked: (Long) -> U
 
         ) {
         LazyColumn(
-            modifier = Modifier, contentPadding = it
+            modifier = Modifier.fillMaxWidth().background(Color.White), horizontalAlignment = Alignment.CenterHorizontally, contentPadding = it
         ){
 //            item {
 //                val heroe = Heroe(121221,"goku", "Is the best", "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.cartonionline.com%2Fes%2Fwordpress%2Fbola-de-drag%25C3%25B3n-de-goku%2F&psig=AOvVaw2Ya1EKOmoWjbpPukKuzMDK&ust=1687079533840000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCIi9qJT7yf8CFQAAAAAdAAAAABAK", false)

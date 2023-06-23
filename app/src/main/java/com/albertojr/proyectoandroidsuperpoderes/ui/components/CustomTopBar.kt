@@ -25,7 +25,8 @@ fun CustomTopBar(isExtendedTopBar: Boolean = false, onBackToHeroeListClicled: (U
 @Composable
 fun CustomTopBarContent(isExtendedTopBar: Boolean = false,onBackToHeroeListClicled: (Unit) -> (Unit) = {}) {
     if(isExtendedTopBar){
-        MediumTopAppBar(
+//        MediumTopAppBar(
+        TopAppBar(
             title = {
                 Text("Detailed Heroe") //TODO past string id as parameter
             },

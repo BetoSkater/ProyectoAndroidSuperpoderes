@@ -1,5 +1,6 @@
 package com.albertojr.proyectoandroidsuperpoderes.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,7 +39,7 @@ fun CustomBottomBarContent(hasFloatingButton: Boolean = false, isLikedIcon: Bool
     //TODO this bar can hold a floating button, add the filter to fav heroes in that button
       BottomAppBar(
           actions = {TestAction(onBackToHeroeListClicled)},
-          modifier = Modifier,
+          modifier = Modifier.background(Color.White),
           floatingActionButton = {if(hasFloatingButton){ CustomFloatingActionButton(isLikedIcon, onFloatingButtonClicked)}},
           )
 }
