@@ -1,29 +1,11 @@
 package com.albertojr.proyectoandroidsuperpoderes
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.assertIsEnabled
-import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToIndex
-import androidx.compose.ui.test.performTextClearance
-import androidx.compose.ui.test.performTextInput
-import com.albertojr.proyectoandroidsuperpoderes.repository.DefaultRepository
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
-import com.albertojr.proyectoandroidsuperpoderes.repository.Repository
-import com.albertojr.proyectoandroidsuperpoderes.repository.local.LocalDataSource
-import com.albertojr.proyectoandroidsuperpoderes.repository.remote.RemoteDataSource
-import com.albertojr.proyectoandroidsuperpoderes.ui.components.CustomTopBar
-import com.albertojr.proyectoandroidsuperpoderes.ui.model.ItemCardData
-import com.albertojr.proyectoandroidsuperpoderes.ui.scaffolds.HeroeDetailScreen
-import com.albertojr.proyectoandroidsuperpoderes.ui.scaffolds.HeroeDetailScreenContent
-import com.albertojr.proyectoandroidsuperpoderes.ui.scaffolds.HeroesListScreen
 import com.albertojr.proyectoandroidsuperpoderes.ui.scaffolds.HeroesListScreenContent
-import com.albertojr.proyectoandroidsuperpoderes.ui.viewModel.HeroeListViewModel
 import org.junit.Rule
 import org.junit.Test
 
