@@ -14,7 +14,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DefaultRemoteDataSource @Inject constructor(private val api: MarvelApi): RemoteDataSource {
+open class DefaultRemoteDataSource @Inject constructor(private val api: MarvelApi): RemoteDataSource {
     override suspend fun retrieveHeroes(): List<Heroe> {
         try {
             val ts = getTimeStamp()
@@ -25,8 +25,10 @@ class DefaultRemoteDataSource @Inject constructor(private val api: MarvelApi): R
             val result = api.retrieveHeroes(ts, apikey,hash,orderBy)
             return HeroeRemoteToHeroe().mapHeroesRemoteToHeroes(result.data.results)
         }catch (exception: Exception){
-            Log.w("Error", "Heroes Call error: $exception")
-            return emptyList<Heroe>()
+           // Log.w("Error", "Heroes Call error: $exception")
+            val result = api.retrieveHeroes(1, getApiKey(),generateHashMD5(1),"-modified")
+            return HeroeRemoteToHeroe().mapHeroesRemoteToHeroes(result.data.results)
+            //return emptyList<Heroe>()
         }
     }
 
@@ -42,7 +44,9 @@ class DefaultRemoteDataSource @Inject constructor(private val api: MarvelApi): R
             return ComicResultToComic().mapComicResultToComics(result.data.results) //TODO refactor the result.data.results
         }catch (exception: Exception){
             Log.w("Error", "Comic Call error: $exception")
-            return emptyList<Comic>()
+            val result = api.retrieveHeroeComics(heroeId,1,getApiKey(),generateHashMD5(1),"onsaleDate")
+            return ComicResultToComic().mapComicResultToComics(result.data.results)
+           // return emptyList<Comic>()
         }
     }
 
@@ -57,7 +61,9 @@ class DefaultRemoteDataSource @Inject constructor(private val api: MarvelApi): R
             return SerieResultToSerie().mapSerieResultToSeries(result)
         }catch (exception: Exception){
             Log.w("Error", "Serie Call error: $exception")
-            return emptyList<Serie>()
+           // return emptyList<Serie>()
+            val result = api.retrieveHeroeSeries(heroeId,1,getApiKey(),generateHashMD5(1),"startYear").data.results //TODO refactor the result.data.results
+            return SerieResultToSerie().mapSerieResultToSeries(result)
         }
     }
     //RequestData

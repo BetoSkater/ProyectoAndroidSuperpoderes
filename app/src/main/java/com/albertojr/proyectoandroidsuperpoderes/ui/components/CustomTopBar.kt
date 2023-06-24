@@ -11,6 +11,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.albertojr.proyectoandroidsuperpoderes.R
@@ -19,7 +20,7 @@ import com.albertojr.proyectoandroidsuperpoderes.R
 fun CustomTopBar(isExtendedTopBar: Boolean = false, onBackToHeroeListClicled: (Unit) -> (Unit) = {}) {
     CustomTopBarContent(isExtendedTopBar, onBackToHeroeListClicled)
 }
-//TODO detail view needs at leat a MediumTopAppBar, because it has the return funtionality
+//TODO detail view needs at lesat a MediumTopAppBar, because it has the return funtionality
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTopBarContent(isExtendedTopBar: Boolean = false,onBackToHeroeListClicled: (Unit) -> (Unit) = {}) {
@@ -28,12 +29,15 @@ fun CustomTopBarContent(isExtendedTopBar: Boolean = false,onBackToHeroeListClicl
             title = {
                 Text(stringResource(id = R.string.character_detail))
             },
-            navigationIcon = {BackButtonTopBar(onBackToHeroeListClicled)}
+            navigationIcon = {BackButtonTopBar(onBackToHeroeListClicled)},
+            modifier = Modifier.testTag("extended_top_bar")
         )
     }else{
         CenterAlignedTopAppBar(title = {
             Text(stringResource(id = R.string.marvel_heroes))
-        })
+        },
+            modifier = Modifier.testTag("basic_top_bar")
+        )
     }
 }
 

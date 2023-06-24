@@ -24,6 +24,7 @@ import com.albertojr.proyectoandroidsuperpoderes.ui.viewModel.HeroeListViewModel
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 
 
 @Composable
@@ -63,7 +64,7 @@ fun HeroesListScreenContent(heroes: List<Heroe>, onHeroeListClicked: (Long) -> U
 
         ) {
         LazyColumn(
-            modifier = Modifier.fillMaxWidth().background(Color.White),
+            modifier = Modifier.fillMaxWidth().background(Color.White).testTag("heroe_list_lazy_column"),
             horizontalAlignment = Alignment.CenterHorizontally,
             contentPadding = it
         ){

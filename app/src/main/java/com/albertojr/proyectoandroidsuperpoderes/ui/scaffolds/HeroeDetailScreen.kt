@@ -27,9 +27,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.albertojr.proyectoandroidsuperpoderes.R
 import com.albertojr.proyectoandroidsuperpoderes.ui.components.ItemCard
 import com.albertojr.proyectoandroidsuperpoderes.repository.Heroe
 import com.albertojr.proyectoandroidsuperpoderes.ui.components.CustomBottomBar
@@ -118,10 +121,11 @@ fun DetailViewTabs(comicsList: List<ItemCardData>, seriesList: List<ItemCardData
 @Composable
 fun DetailViewTabsContent(comicsList: List<ItemCardData>, seriesList: List<ItemCardData>){
     var state by remember { mutableStateOf(0) }
-    val titles = listOf("Comics", "Series")
+    val titles = listOf(stringResource(id = R.string.detail_comics), stringResource(id = R.string.detail_series))
     Column {
         TabRow(selectedTabIndex = state,
-        contentColor = Color.Red) {
+        contentColor = Color.Red,
+        modifier = Modifier.testTag("detail_tab_row")) {
             titles.forEachIndexed { index, title ->
                 Tab(
                     text = { //TODO decouple the text component
@@ -160,7 +164,9 @@ fun TabContent(itemCardData: List<ItemCardData>) {
 
 @Composable
 fun TabContentContent(itemCardData: List<ItemCardData>) {
-    LazyColumn(modifier = Modifier.fillMaxWidth().background(Color.White),
+    LazyColumn(modifier = Modifier
+        .fillMaxWidth()
+        .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
     ){
         items(items = itemCardData, key = {it.id}){element ->
